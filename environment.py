@@ -30,8 +30,8 @@ GOAL_N = 2 # key in dict for goal (pixel)
 d = { 1: (255, 175, 0), # blueish
       2: (0, 0, 0) } # black (pixel)
 
-class Goal:
-    # TODO: import coordinates
+# class Goal:
+#     # TODO: import coordinates
     
 class Sqaure:
     def __init__(self):
