@@ -29,7 +29,30 @@ GOAL_N = 2 # key in dict for goal (pixel)
 # dict
 d = { 1: (255, 175, 0), # blueish
       2: (0, 0, 0) } # black (pixel)
+
+class Goal:
+    # TODO: import coordinates
     
 class Sqaure:
     def __init__(self):
-        self.x = np.random.randint
+        # self.x = np.random.randint(0, SIZE)
+        # self.y = np.random.randint(0, SIZE)
+        self.x = 0
+        self.y = 0
+        ### 
+        # later: instead of starting in (0,0), 
+        # start in state-action pair with greatest q-value
+        ###
+
+    # just a toString for debugging
+    def __str__(self):
+        return f"{self.x}, {self.y}"
+    
+    # to subtract Sqaure from goal (pixel)
+    # TODO
+    # def __sub__(self, goal):
+    #     return (self.x-goal.x, self.y-goal.y)
+
+    
+
+    
