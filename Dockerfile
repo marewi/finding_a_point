@@ -3,6 +3,7 @@ FROM tensorflow/tensorflow:latest-py3
 
 RUN apt-get update
 RUN apt-get install -y libsm6 libxext6 libxrender-dev
+RUN apt-get install git
 
 RUN pip install pip
 
@@ -10,7 +11,7 @@ RUN pip install Pillow
 RUN pip install opencv-python
 RUN pip install matplotlib
 
-ADD . /developer
+# ADD . /developer
 
 # # import lib
 # ADD ./lib /developer
