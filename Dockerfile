@@ -5,7 +5,7 @@ RUN apt-get update
 RUN apt-get install -y libsm6 libxext6 libxrender-dev
 RUN apt-get install -y git
 
-RUN pip install pip
+RUN pip install --upgrade pip
 
 RUN pip install Pillow
 RUN pip install opencv-python

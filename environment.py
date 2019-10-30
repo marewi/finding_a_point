@@ -1,5 +1,5 @@
 # https://pythonprogramming.net/own-environment-q-learning-reinforcement-learning-python-tutorial/
-import numpy as numpy
+import numpy as np
 from PIL import Image
 import cv2
 import matplotlib.pyplot as plt
@@ -32,3 +32,4 @@ d = { 1: (255, 175, 0), # blueish
     
 class Sqaure:
     def __init__(self):
+        self.x = np.random.randint
