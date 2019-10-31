@@ -10,6 +10,8 @@ RUN pip install --upgrade pip
 RUN pip install Pillow
 RUN pip install opencv-python
 RUN pip install matplotlib
+RUN pip install xlrd
+RUN pip install prettytable
 
 # ADD . /developer
 

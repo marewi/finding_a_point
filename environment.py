@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import pickle
 from matplotlib import style
 import time
+import xlrd
+from prettytable import PrettyTable
 
 style.use("ggplot")
 
@@ -88,8 +90,32 @@ class Sqaure:
         elif self.y > SIZE-1:
             self.y = SIZE-1
 
+# TODO: put this in /lib
+def sheetToString(self):
+    '''
+    converting sheet to string
+    '''
+    titles = []
+    for iii in range(self.ncols):
+        titles.append(str(self.cell_value(0,iii)))
+    data = []
+    t = PrettyTable(titles)
 
-# TODO: import coordinates
+    for i in range(self.nrows):
+        for ii in range(self.ncols):
+            data.append(str(self.cell_value(i,ii)))
+        t.add_row(data)
+        data = []
+
+    return(t)
+
+
+
+# import coordinates from file
+loc = ("./table.xlsx")
+wb = xlrd.open_workbook(loc)
+sheet = wb.sheet_by_index(0)
+print(sheetToString(sheet))
 
 
 agent = Sqaure()
