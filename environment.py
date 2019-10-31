@@ -13,17 +13,17 @@ style.use("ggplot")
 
 SIZE = 100 # size of square grid env
 
-EPISODES = 100
+EPISODES = 100 # TODO: part of env?
 MOVE_PENALTY = 1
 GOAL_REWARD = 100
-epsilon = 0.5
-EPISODE_DECAY = 0.9999 # every episode will be epsilon*EPISODE_DECAY
+epsilon = 0.5 # TODO: part of env?
+EPISODE_DECAY = 0.9999 # every episode will be epsilon*EPISODE_DECAY # TODO: part of env?
 # SHOW_EVERY = 10 # how often to play through env visually
 
 start_q_table = None # here can be inserted a existing file
 
-LEARNING_RATE = 0.1
-DISCOUNT = 0.95
+LEARNING_RATE = 0.1 # TODO: part of env?
+DISCOUNT = 0.95 # TODO: part of env?
 
 AGENT_N = 1 # key in dict for agent
 GOAL_N = 2 # key in dict for goal (pixel)
