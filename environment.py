@@ -75,11 +75,26 @@ class Sqaure:
             self.move(y=-1)
 
     def move(self, x=False, y=False):
-        # TODO
+        self.x += x
+        self.y += y
 
-
-
+        # fix boundaries
+        if self.x < 0:
+            self.x = 0
+        elif self.x > SIZE-1:
+            self.x = SIZE-1
+        if self.y < 0:
+            self.y = 0
+        elif self.y > SIZE-1:
+            self.y = SIZE-1
 
 
 # TODO: import coordinates
-    
+
+
+agent = Sqaure()
+goal = Goal(x=10,y=10)
+print(agent)
+print(agent-goal)
+agent.action(0)
+print(agent-goal)
