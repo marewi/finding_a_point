@@ -30,8 +30,13 @@ GOAL_N = 2 # key in dict for goal (pixel)
 d = { 1: (255, 175, 0), # blueish
       2: (0, 0, 0) } # black (pixel)
 
-# class Goal:
-#     # TODO: import coordinates
+class Goal:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f"{self.x}, {self.y}"
     
 class Sqaure:
     def __init__(self):
@@ -49,10 +54,32 @@ class Sqaure:
         return f"{self.x}, {self.y}"
     
     # to subtract Sqaure from goal (pixel)
-    # TODO
-    # def __sub__(self, goal):
-    #     return (self.x-goal.x, self.y-goal.y)
+    def __sub__(self, goal):
+        return (self.x-goal.x, self.y-goal.y)
 
-    
+    def action(self, choice):
+        '''
+        4 different movement options:
+            0. rechts: ++x
+            1. links: --x
+            2. runter: ++y
+            3. hoch: --y
+        '''
+        if choice == 0:
+            self.move(x=1)
+        elif choice == 1:
+            self.move(x=-1)
+        elif choice == 2:
+            self.move(y=1)
+        elif choice == 3:
+            self.move(y=-1)
 
+    def move(self, x=False, y=False):
+        # TODO
+
+
+
+
+
+# TODO: import coordinates
     
