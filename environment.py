@@ -11,7 +11,7 @@ from prettytable import PrettyTable
 
 style.use("ggplot")
 
-SIZE = 100 # size of square grid env
+SIZE = 10 # size of square grid env
 
 EPISODES = 100 # TODO: part of env?
 MOVE_PENALTY = 1
@@ -109,18 +109,35 @@ def sheetToString(self):
 
     return(t)
 
-
-
 # import coordinates from file
 loc = ("./table.xlsx")
 wb = xlrd.open_workbook(loc)
 sheet = wb.sheet_by_index(0)
 print(sheetToString(sheet))
 
+# TODO: create goal with coordinates from file
 
+# testing
 agent = Sqaure()
 goal = Goal(x=10,y=10)
 print(agent)
 print(agent-goal)
 agent.action(0)
 print(agent-goal)
+
+#################################################################
+
+
+if start_q_table is None:
+    q_table = {}
+    for i in range(-SIZE+1, SIZE):
+        for ii in range(-SIZE+1, SIZE):
+            for iii in range(-SIZE+1, SIZE):
+                for iiii in range(-SIZE+1, SIZE):
+                    q_table[((i,ii),(iii,iiii))] = [np.random.uniform(-5,0) for i in range(4)]
+else:
+    with open(start_q_table, "rb") as f:
+        q_table = pickle.load(f)
+
+print(q_table[((1,1),(1,1))])
+
