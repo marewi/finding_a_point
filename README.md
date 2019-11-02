@@ -1,5 +1,5 @@
 # finding a point in a grid layout
-Testing some Q-Learning Methods
+testing the use case
 
 ### build
 docker build --rm -f Dockerfile -t finding-a-point .
