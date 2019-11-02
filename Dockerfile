@@ -12,11 +12,11 @@ RUN pip install --upgrade pip && \
     pip install xlrd && \
     pip install prettytable
 
-RUN mkdir /developer
+# RUN mkdir /developer
 
-# # import lib
-# ADD ./lib /developer
+RUN git init && \
+    git clone -b develop https://c1cabe97056d6f0fd36f0ae90f3681ed9c650e11:x-oauth-basic@github.com/marewi/finding_a_point.git /finding-a-point
 
-WORKDIR '/developer'
+WORKDIR '/finding-a-point'
 
 LABEL maintainer="marc-wittlinger@gmx.de"
