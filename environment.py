@@ -13,7 +13,7 @@ style.use("ggplot")
 
 SIZE = 10 # size of square grid env
 
-EPISODES = 100 # TODO: part of env?
+EPISODES = 100 # this is per training data (picture) # TODO: part of env?
 MOVE_PENALTY = 1
 GOAL_REWARD = 100
 epsilon = 0.5 # TODO: part of env?
@@ -126,7 +126,7 @@ agent.action(0)
 print(agent-goal)
 
 #################################################################
-
+# HERE STARTS MODEL DEVELOPMENT AND TRAINING
 
 if start_q_table is None:
     q_table = {}
@@ -140,4 +140,38 @@ else:
         q_table = pickle.load(f)
 
 print(q_table[((1,1),(1,1))])
+
+
+episode_rewards = []
+# for picture in range(all pictures):
+#     goal = Goal(x,y)
+#     for episode in range(EPISODES):
+#         agent = Sqaure()
+
+if episode % SHOW_EVERY == 0:
+    print(f"on #{episode}, epsilon is {epsilon}")
+    print(f"{SHOW_EVERY} ep mean: {np.mean(episode_rewards[-SHOW_EVERY:])}")
+
+episode_reward = 0
+for i in range(200): # TODO: why 200? -> maybe number of steps in episode
+    obs = {agent-goal}
+    print(obs)
+    if np.random.random() > epsilon:
+        action = np.argmax(q_table[obs]) # get action
+    else:
+        action = np.random.randint(0,4) # get action
+    agent.action(action) # take the action
+    # rewarding:
+    if agent.x == goal.x and agent.y == goal.y:
+        reward = GOAL_REWARD
+    else:
+        reward = -MOVE_PENALTY
+    new_obs = agent - goal # new observation
+    max_future_q = np.max(q_table[new_obs]) # max Q-value for this new obs
+    current_q = q_table[obs][action] # current Q for our chosen action
+    # calculations:
+    if reward == GOAL_REWARD:
+        new_q = GOAL_REWARD
+    else:
+        new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + DISCOUNT * max_future_q)
 
