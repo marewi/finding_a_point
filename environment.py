@@ -18,7 +18,7 @@ MOVE_PENALTY = 1
 GOAL_REWARD = 100
 epsilon = 0.5 # TODO: part of env?
 EPISODE_DECAY = 0.9999 # every episode will be epsilon*EPISODE_DECAY # TODO: part of env?
-# SHOW_EVERY = 10 # how often to play through env visually
+SHOW_EVERY = 10 # how often to play through env visually
 
 start_q_table = None # here can be inserted a existing file
 
@@ -119,7 +119,7 @@ print(sheetToString(sheet))
 
 # testing
 agent = Sqaure()
-goal = Goal(x=10,y=10)
+goal = Goal(x=9,y=9)
 print(agent)
 print(agent-goal)
 agent.action(0)
@@ -142,36 +142,47 @@ else:
 print(q_table[((1,1),(1,1))])
 
 
-episode_rewards = []
-# for picture in range(all pictures):
-#     goal = Goal(x,y)
-#     for episode in range(EPISODES):
-#         agent = Sqaure()
+# episode_rewards = []
+# # for picture in range(all pictures):
+# #     goal = Goal(x,y)
+# #     for episode in range(EPISODES):
+# #         agent = Sqaure()
 
-if episode % SHOW_EVERY == 0:
-    print(f"on #{episode}, epsilon is {epsilon}")
-    print(f"{SHOW_EVERY} ep mean: {np.mean(episode_rewards[-SHOW_EVERY:])}")
+# if episode % SHOW_EVERY == 0:
+#     print(f"on #{episode}, epsilon is {epsilon}")
+#     print(f"{SHOW_EVERY} ep mean: {np.mean(episode_rewards[-SHOW_EVERY:])}")
 
-episode_reward = 0
-for i in range(200): # TODO: why 200? -> maybe number of steps in episode
-    obs = {agent-goal}
-    print(obs)
-    if np.random.random() > epsilon:
-        action = np.argmax(q_table[obs]) # get action
-    else:
-        action = np.random.randint(0,4) # get action
-    agent.action(action) # take the action
-    # rewarding:
-    if agent.x == goal.x and agent.y == goal.y:
-        reward = GOAL_REWARD
-    else:
-        reward = -MOVE_PENALTY
-    new_obs = agent - goal # new observation
-    max_future_q = np.max(q_table[new_obs]) # max Q-value for this new obs
-    current_q = q_table[obs][action] # current Q for our chosen action
-    # calculations:
-    if reward == GOAL_REWARD:
-        new_q = GOAL_REWARD
-    else:
-        new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + DISCOUNT * max_future_q)
+# episode_reward = 0
+# for i in range(200): # TODO: why 200? -> maybe number of steps in episode
+#     obs = {agent-goal}
+#     print(obs)
+#     if np.random.random() > epsilon:
+#         action = np.argmax(q_table[obs]) # get action
+#     else:
+#         action = np.random.randint(0,4) # get action
+#     agent.action(action) # take the action
+#     # rewarding:
+#     if agent.x == goal.x and agent.y == goal.y:
+#         reward = GOAL_REWARD
+#     else:
+#         reward = -MOVE_PENALTY
+#     new_obs = agent - goal # new observation
+#     max_future_q = np.max(q_table[new_obs]) # max Q-value for this new obs
+#     current_q = q_table[obs][action] # current Q for our chosen action
+#     # calculations:
+#     if reward == GOAL_REWARD:
+#         new_q = GOAL_REWARD
+#     else:
+#         new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + DISCOUNT * max_future_q)
 
+
+
+### testing
+print("here starts testing area")
+env = np.zeros((SIZE, SIZE, 3), dtype=np.uint8)  # starts an rbg of our size
+env[goal.x][goal.y] = d[GOAL_N]  # sets the food location tile to green color
+env[agent.x][agent.y] = d[AGENT_N]  # sets the player tile to blue
+img = Image.fromarray(env, 'RGB')  # reading to rgb. Apparently. Even tho color definitions are bgr. ???
+img = img.resize((300, 300))  # resizing so we can see our agent in all its glory.
+cv2.imshow("image", np.array(img))  # show it!
+###
