@@ -8,6 +8,7 @@ from matplotlib import style
 import time
 import xlrd
 from prettytable import PrettyTable
+from lib.generateplot import write_event
 
 style.use("ggplot")
 
@@ -40,7 +41,7 @@ class Goal:
     def __str__(self):
         return f"{self.x}, {self.y}"
     
-class Sqaure:
+class Square:
     def __init__(self):
         # self.x = np.random.randint(0, SIZE)
         # self.y = np.random.randint(0, SIZE)
@@ -55,7 +56,7 @@ class Sqaure:
     def __str__(self):
         return f"{self.x}, {self.y}"
     
-    # to subtract Sqaure from goal (pixel)
+    # to subtract Square from goal (pixel)
     def __sub__(self, goal):
         return (self.x-goal.x, self.y-goal.y)
 
@@ -118,7 +119,7 @@ print(sheetToString(sheet))
 # TODO: create goal with coordinates from file
 
 # testing
-agent = Sqaure()
+agent = Square()
 goal = Goal(x=9,y=9)
 print(agent)
 print(agent-goal)
@@ -132,57 +133,54 @@ if start_q_table is None:
     q_table = {}
     for i in range(-SIZE+1, SIZE):
         for ii in range(-SIZE+1, SIZE):
-            for iii in range(-SIZE+1, SIZE):
-                for iiii in range(-SIZE+1, SIZE):
-                    q_table[((i,ii),(iii,iiii))] = [np.random.uniform(-5,0) for i in range(4)]
+            q_table[(i,ii)] = [np.random.uniform(-5,0) for i in range(4)]
 else:
     with open(start_q_table, "rb") as f:
         q_table = pickle.load(f)
 
-print(q_table[((1,1),(1,1))])
+print(f"q_table: {q_table[(1,1)]}")
 
 
-# episode_rewards = []
-# # for picture in range(all pictures):
-# #     goal = Goal(x,y)
-# #     for episode in range(EPISODES):
-# #         agent = Sqaure()
+episode_rewards = []
+for picture in range(1): # TODO: all pictures
+    goal = Goal(5,5) # TODO: import from file
+    for episode in range(EPISODES):
+        agent = Square()
 
-# if episode % SHOW_EVERY == 0:
-#     print(f"on #{episode}, epsilon is {epsilon}")
-#     print(f"{SHOW_EVERY} ep mean: {np.mean(episode_rewards[-SHOW_EVERY:])}")
+if episode % SHOW_EVERY == 0:
+    print(f"on #{episode}, epsilon is {epsilon}")
+    print(f"{SHOW_EVERY} ep mean: {np.mean(episode_rewards[-SHOW_EVERY:])}")
 
-# episode_reward = 0
-# for i in range(200): # TODO: why 200? -> maybe number of steps in episode
-#     obs = {agent-goal}
-#     print(obs)
-#     if np.random.random() > epsilon:
-#         action = np.argmax(q_table[obs]) # get action
-#     else:
-#         action = np.random.randint(0,4) # get action
-#     agent.action(action) # take the action
-#     # rewarding:
-#     if agent.x == goal.x and agent.y == goal.y:
-#         reward = GOAL_REWARD
-#     else:
-#         reward = -MOVE_PENALTY
-#     new_obs = agent - goal # new observation
-#     max_future_q = np.max(q_table[new_obs]) # max Q-value for this new obs
-#     current_q = q_table[obs][action] # current Q for our chosen action
-#     # calculations:
-#     if reward == GOAL_REWARD:
-#         new_q = GOAL_REWARD
-#     else:
-#         new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + DISCOUNT * max_future_q)
+episode_reward = 0
+for i in range(200): # TODO: why 200? -> maybe number of steps in episode
+    obs = agent-goal
+    print(f"i = {i} | obs: {obs}")
+    if np.random.random() > epsilon:
+        action = np.argmax(q_table[obs]) # get action
+    else:
+        action = np.random.randint(0,4) # get action
+    agent.action(action) # take the action
+    # rewarding:
+    if agent.x == goal.x and agent.y == goal.y:
+        reward = GOAL_REWARD
+    else:
+        reward = -MOVE_PENALTY
+    new_obs = agent - goal # new observation
+    max_future_q = np.max(q_table[new_obs]) # max Q-value for this new obs
+    current_q = q_table[obs][action] # current Q for our chosen action
+    # calculations:
+    if reward == GOAL_REWARD:
+        new_q = GOAL_REWARD
+    else:
+        new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + DISCOUNT * max_future_q)
+    q_table[obs][action] = new_q
+    episode_reward += reward
+    if reward == GOAL_REWARD:
+        break
+    # print(f"episode_reward: {episode_reward}")
+    episode_rewards.append(episode_reward)
+    epsilon *= EPISODE_DECAY
 
+moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,))/SHOW_EVERY, mode='valid')
 
-
-### testing
-print("here starts testing area")
-env = np.zeros((SIZE, SIZE, 3), dtype=np.uint8)  # starts an rbg of our size
-env[goal.x][goal.y] = d[GOAL_N]  # sets the food location tile to green color
-env[agent.x][agent.y] = d[AGENT_N]  # sets the player tile to blue
-img = Image.fromarray(env, 'RGB')  # reading to rgb. Apparently. Even tho color definitions are bgr. ???
-img = img.resize((300, 300))  # resizing so we can see our agent in all its glory.
-cv2.imshow("image", np.array(img))  # show it!
-###
+write_event(moving_avg, "moving_avg")

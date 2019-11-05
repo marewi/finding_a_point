@@ -1,6 +1,6 @@
 FROM tensorflow/tensorflow:latest-py3
 
-RUN apt-get update && \
+RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y libsm6 libxext6 libxrender-dev && \
     apt-get install -y git
