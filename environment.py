@@ -107,7 +107,6 @@ def sheetToString(self):
             data.append(str(self.cell_value(i,ii)))
         t.add_row(data)
         data = []
-
     return(t)
 
 # import coordinates from file
@@ -117,6 +116,9 @@ sheet = wb.sheet_by_index(0)
 print(sheetToString(sheet))
 
 # TODO: create goal with coordinates from file
+first_x = sheet.cell_value(1,2)
+first_y = sheet.cell_value(1,3)
+print(f"first_x = {first_x} | first_y = {first_y}")
 
 # testing
 agent = Square()
@@ -139,7 +141,6 @@ else:
         q_table = pickle.load(f)
 
 print(f"q_table: {q_table[(1,1)]}")
-
 
 episode_rewards = []
 for picture in range(1): # TODO: all pictures
@@ -183,4 +184,5 @@ for i in range(200): # TODO: why 200? -> maybe number of steps in episode
 
 moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,))/SHOW_EVERY, mode='valid')
 
+# TODO: dont save events in this dir because of git...
 write_event(moving_avg, "moving_avg")
