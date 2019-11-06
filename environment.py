@@ -12,7 +12,7 @@ from lib.generateplot import write_event
 
 style.use("ggplot")
 
-SIZE = 10 # size of square grid env
+SIZE = 100 # size of square grid env
 
 EPISODES = 100 # this is per training data (picture) # TODO: part of env?
 MOVE_PENALTY = 1
