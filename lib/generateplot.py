@@ -3,21 +3,20 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import io
 
-def gen_plot(data, plotTitle):
-    """Create a pyplot plot and save to buffer."""
-    plt.figure()
-    plt.plot(data)
-    plt.title(plotTitle)
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    return buf
-
 def write_event(data, plotTitle="plotTitle"):
     '''
-    data
-    plotTitle
+    data, plotTitle
     '''
+    def gen_plot(data, plotTitle):
+        """Create a pyplot plot and save to buffer."""
+        plt.figure()
+        plt.plot(data)
+        plt.title(plotTitle)
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png')
+        buf.seek(0)
+        return buf
+
     # Prepare the plot
     plot_buf = gen_plot(data, plotTitle)
 

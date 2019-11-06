@@ -1,4 +1,3 @@
-# https://pythonprogramming.net/own-environment-q-learning-reinforcement-learning-python-tutorial/
 import numpy as np
 from PIL import Image
 import cv2
@@ -7,7 +6,7 @@ import pickle
 from matplotlib import style
 import time
 import xlrd
-from prettytable import PrettyTable
+from lib.toStringExt import sheetToString
 from lib.generateplot import write_event
 import time
 
@@ -17,7 +16,7 @@ style.use("ggplot")
 
 SIZE = 100 # size of square grid env
 
-EPISODES = 1000 # this is per training data (picture) -> 50000 per pic # TODO: part of env?
+EPISODES = 10000 # this is per training data (picture) -> 50000 per pic # TODO: part of env?
 MOVE_PENALTY = 1
 GOAL_REWARD = 100
 epsilon = 0.5 # TODO: part of env?
@@ -94,34 +93,11 @@ class Square:
         elif self.y > SIZE-1:
             self.y = SIZE-1
 
-# TODO: put this in /lib
-def sheetToString(self):
-    '''
-    converting sheet to string
-    '''
-    titles = []
-    for iii in range(self.ncols):
-        titles.append(str(self.cell_value(0,iii)))
-    data = []
-    t = PrettyTable(titles)
-
-    for i in range(1,self.nrows):
-        for ii in range(self.ncols):
-            data.append(str(self.cell_value(i,ii)))
-        t.add_row(data)
-        data = []
-    return(t)
-
-# import coordinates from file
+# import coordinates (goals) from file
 loc = ("./table.xlsx")
 wb = xlrd.open_workbook(loc)
 sheet = wb.sheet_by_index(0)
 print(sheetToString(sheet))
-
-# TODO: create goal with coordinates from file
-# first_x = sheet.cell_value(1,2)
-# first_y = sheet.cell_value(1,3)
-# print(f"first_x = {first_x} | first_y = {first_y}")
 
 x_values = []
 y_values = []
@@ -135,7 +111,7 @@ for pic_pos in range(sheet.nrows-1):
     goals.append(Goal(x_values[pic_pos],y_values[pic_pos]))
     print(f"goal created: nr = {pic_pos} | x = {goals[pic_pos].x} , y = {goals[pic_pos].y}")
 
-# PoC for incremental creating of an Goal
+# PoC for creating a Goal incrementally
 # for i in range(sheet.nrows-1):
 #     print(f"x_position: {i} | x_value = {x_values[i]}")
 
@@ -149,7 +125,7 @@ for pic_pos in range(sheet.nrows-1):
 
 print(f"--- time to create environment: {time.time()-env_time} ---")
 #################################################################
-# HERE STARTS MODEL DEVELOPMENT
+### HERE STARTS MODEL DEVELOPMENT
 model_time = time.time()
 
 if start_q_table is None:
@@ -160,11 +136,11 @@ if start_q_table is None:
 else:
     with open(start_q_table, "rb") as f:
         q_table = pickle.load(f)
-print(f"q_table TEST: {q_table[(1,1)]}")
+print(f"q_table TEST: {q_table[(0,0)]}")
 
 print(f"--- time to create model: {time.time()-model_time} ---")
 #################################################################
-# HERE STARTS MODEL TRAINING
+### HERE STARTS MODEL TRAINING
 training_time = time.time()
 
 episode_rewards = []
@@ -212,6 +188,8 @@ print(f"--- time to train model: {time.time()-model_time} ---")
 
 moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,))/SHOW_EVERY, mode='valid')
 print(f"moving_avg: {moving_avg}")
+
+print(f"{q_table[0,0]}")
 
 # TODO: dont save events in this dir because of git... this isnt so bad for logging for example
 write_event(moving_avg, "moving_avg")
