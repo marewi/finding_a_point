@@ -15,4 +15,5 @@ def sheetToString(self):
             data.append(str(self.cell_value(i,ii)))
         table.add_row(data)
         data = []
+        
     return(table)
