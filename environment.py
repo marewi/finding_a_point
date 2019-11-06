@@ -102,7 +102,7 @@ def sheetToString(self):
     data = []
     t = PrettyTable(titles)
 
-    for i in range(self.nrows):
+    for i in range(1,self.nrows):
         for ii in range(self.ncols):
             data.append(str(self.cell_value(i,ii)))
         t.add_row(data)
@@ -120,13 +120,24 @@ first_x = sheet.cell_value(1,2)
 first_y = sheet.cell_value(1,3)
 print(f"first_x = {first_x} | first_y = {first_y}")
 
+x_values = []
+y_values = []
+for i in range(1, sheet.nrows):
+    x_values.append(sheet.cell_value(i,2))
+for i in range(1, sheet.nrows):
+    y_values.append(sheet.cell_value(i,3))
+
+# PoC for incremental creating of an Goal
+# for i in range(sheet.nrows-1):
+#     print(f"x_position: {i} | x_value = {x_values[i]}")
+
 # testing
-agent = Square()
-goal = Goal(x=9,y=9)
-print(agent)
-print(agent-goal)
-agent.action(0)
-print(agent-goal)
+# agent = Square()
+# goal = Goal(x=9,y=9)
+# print(agent)
+# print(agent-goal)
+# agent.action(0)
+# print(agent-goal)
 
 #################################################################
 # HERE STARTS MODEL DEVELOPMENT AND TRAINING
@@ -142,47 +153,47 @@ else:
 
 print(f"q_table: {q_table[(1,1)]}")
 
+goals = []
 episode_rewards = []
-for picture in range(1): # TODO: all pictures
-    goal = Goal(5,5) # TODO: import from file
+for pic_pos in range(sheet.nrows-1):
+    goals.append(Goal(x_values[pic_pos],y_values[pic_pos]))
+    print(f"goal created: nr = {pic_pos} | x = {goals[pic_pos].x} , y = {goals[pic_pos].y}")
     for episode in range(EPISODES):
         agent = Square()
-
-if episode % SHOW_EVERY == 0:
-    print(f"on #{episode}, epsilon is {epsilon}")
-    print(f"{SHOW_EVERY} ep mean: {np.mean(episode_rewards[-SHOW_EVERY:])}")
-
-episode_reward = 0
-for i in range(200): # TODO: why 200? -> maybe number of steps in episode
-    obs = agent-goal
-    print(f"i = {i} | obs: {obs}")
-    if np.random.random() > epsilon:
-        action = np.argmax(q_table[obs]) # get action
-    else:
-        action = np.random.randint(0,4) # get action
-    agent.action(action) # take the action
-    # rewarding:
-    if agent.x == goal.x and agent.y == goal.y:
-        reward = GOAL_REWARD
-    else:
-        reward = -MOVE_PENALTY
-    new_obs = agent - goal # new observation
-    max_future_q = np.max(q_table[new_obs]) # max Q-value for this new obs
-    current_q = q_table[obs][action] # current Q for our chosen action
-    # calculations:
-    if reward == GOAL_REWARD:
-        new_q = GOAL_REWARD
-    else:
-        new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + DISCOUNT * max_future_q)
-    q_table[obs][action] = new_q
-    episode_reward += reward
-    if reward == GOAL_REWARD:
-        break
+    if episode % SHOW_EVERY == 0:
+        print(f"on #{episode}, epsilon is {epsilon}")
+        print(f"{SHOW_EVERY} ep mean: {np.mean(episode_rewards[-SHOW_EVERY:])}")
+    episode_reward = 0
+    for i in range(2000): # TODO: why 2000? -> maybe number of steps in episode
+        obs = agent-goals[pic_pos]
+        print(f"i = {i} | obs: {obs}")
+        if np.random.random() > epsilon:
+            action = np.argmax(q_table[obs]) # get action
+        else:
+            action = np.random.randint(0,4) # get action
+        agent.action(action) # take the action
+        # rewarding:
+        if agent.x == goals[pic_pos].x and agent.y == goals[pic_pos].y:
+            reward = GOAL_REWARD
+        else:
+            reward = -MOVE_PENALTY
+        new_obs = agent - goals[pic_pos] # new observation
+        max_future_q = np.max(q_table[new_obs]) # max Q-value for this new obs
+        current_q = q_table[obs][action] # current Q for our chosen action
+        # calculations:
+        if reward == GOAL_REWARD:
+            new_q = GOAL_REWARD
+        else:
+            new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + DISCOUNT * max_future_q)
+        q_table[obs][action] = new_q
+        episode_reward += reward
+        if reward == GOAL_REWARD:
+            break
     # print(f"episode_reward: {episode_reward}")
     episode_rewards.append(episode_reward)
     epsilon *= EPISODE_DECAY
 
 moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,))/SHOW_EVERY, mode='valid')
 
-# TODO: dont save events in this dir because of git...
+# TODO: dont save events in this dir because of git... this isnt so bad for logging for example
 write_event(moving_avg, "moving_avg")
