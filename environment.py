@@ -9,6 +9,9 @@ import time
 import xlrd
 from prettytable import PrettyTable
 from lib.generateplot import write_event
+import time
+
+env_time = time.time()
 
 style.use("ggplot")
 
@@ -144,8 +147,10 @@ for pic_pos in range(sheet.nrows-1):
 # agent.action(0)
 # print(agent-goal)
 
+print(f"--- time to create environment: {time.time()-env_time} ---")
 #################################################################
 # HERE STARTS MODEL DEVELOPMENT
+model_time = time.time()
 
 if start_q_table is None:
     q_table = {}
@@ -157,13 +162,15 @@ else:
         q_table = pickle.load(f)
 print(f"q_table TEST: {q_table[(1,1)]}")
 
+print(f"--- time to create model: {time.time()-model_time} ---")
 #################################################################
 # HERE STARTS MODEL TRAINING
+training_time = time.time()
 
 episode_rewards = []
 epsilons = []
 for pic_pos in range(len(goals)):
-    print(f"picture no: {pic_pos}")
+    # print(f"picture no: {pic_pos}")
     for episode in range(EPISODES):
         # print(f"\tepisode: {episode}")
         agent = Square()
@@ -196,10 +203,12 @@ for pic_pos in range(len(goals)):
             episode_reward += reward
             if reward == GOAL_REWARD:
                 break
-        print(f"\tepisode: {episode} | episode_reward: {episode_reward}")
+        print(f"picture no: {pic_pos} | episode: {episode} | episode_reward: {episode_reward}")
         episode_rewards.append(episode_reward)
         epsilons.append(epsilon)
         epsilon *= EPISODE_DECAY
+
+print(f"--- time to train model: {time.time()-model_time} ---")
 
 moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,))/SHOW_EVERY, mode='valid')
 print(f"moving_avg: {moving_avg}")
