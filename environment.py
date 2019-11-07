@@ -2,19 +2,18 @@ import numpy as np
 from PIL import Image
 import cv2
 import matplotlib.pyplot as plt
-import pickle
+# import pickle
 from matplotlib import style
 import time
 import xlrd
 from lib.toStringExt import sheetToString
 from lib.generateplot import write_event
-import time
 
 env_time = time.time()
 
-style.use("ggplot")
+# style.use("ggplot")
 
-SIZE = 100 # size of square grid env
+# SIZE = 100 # size of square grid env
 
 EPISODES = 10000 # this is per training data (picture) -> 50000 per pic # TODO: part of env?
 MOVE_PENALTY = 1
@@ -23,7 +22,7 @@ epsilon = 0.5 # TODO: part of env?
 EPISODE_DECAY = 0.9999 # every episode will be epsilon*EPISODE_DECAY # TODO: part of env?
 SHOW_EVERY = 10 # how often to play through env visually
 
-start_q_table = None # here can be inserted a existing file
+# start_q_table = None # here can be inserted a existing file
 
 LEARNING_RATE = 0.1 # TODO: part of env?
 DISCOUNT = 0.95 # TODO: part of env?
@@ -126,19 +125,19 @@ for pic_pos in range(sheet.nrows-1):
 print(f"--- time to create environment: {time.time()-env_time} ---")
 #################################################################
 ### HERE STARTS MODEL DEVELOPMENT
-model_time = time.time()
+# model_time = time.time()
 
-if start_q_table is None:
-    q_table = {}
-    for i in range(-SIZE+1, SIZE):
-        for ii in range(-SIZE+1, SIZE):
-            q_table[(i,ii)] = [np.random.uniform(-5,0) for i in range(4)]
-else:
-    with open(start_q_table, "rb") as f:
-        q_table = pickle.load(f)
-print(f"q_table TEST: {q_table[(0,0)]}")
+# if start_q_table is None:
+#     q_table = {}
+#     for i in range(-SIZE+1, SIZE):
+#         for ii in range(-SIZE+1, SIZE):
+#             q_table[(i,ii)] = [np.random.uniform(-5,0) for i in range(4)]
+# else:
+#     with open(start_q_table, "rb") as f:
+#         q_table = pickle.load(f)
+# print(f"q_table TEST: {q_table[(0,0)]}")
 
-print(f"--- time to create model: {time.time()-model_time} ---")
+# print(f"--- time to create model: {time.time()-model_time} ---")
 #################################################################
 ### HERE STARTS MODEL TRAINING
 training_time = time.time()
