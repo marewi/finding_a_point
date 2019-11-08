@@ -1,10 +1,10 @@
-from environment import createEnv
+from environment import Environment
 from model_table import Model_table
 from q_learning import moving_avg, epsilons
 from lib.generateplot import write_event
 
 # create environment
-createEnv()
+env = Environment()
 
 # build model
 model = Model_table()

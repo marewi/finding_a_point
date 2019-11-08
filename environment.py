@@ -10,122 +10,123 @@ import xlrd
 from lib.toStringExt import sheetToString
 from lib.generateplot import write_event
 
-env_time = time.time()
-
-# style.use("ggplot")
-
-# SIZE = 100 # size of square grid env
-
-# EPISODES = 10000 # this is per training data (picture) -> 50000 per pic # TODO: part of env?
-# MOVE_PENALTY = 1
-# GOAL_REWARD = 100
-# epsilon = 0.5 # TODO: part of env?
-# EPISODE_DECAY = 0.9999 # every episode will be epsilon*EPISODE_DECAY # TODO: part of env?
-# SHOW_EVERY = 10 # how often to play through env visually
-
-# start_q_table = None # here can be inserted a existing file
-
-# LEARNING_RATE = 0.1 # TODO: part of env?
-# DISCOUNT = 0.95 # TODO: part of env?
-
-# AGENT_N = 1 # key in dict for agent
-# GOAL_N = 2 # key in dict for goal (pixel)
-
-# dict
-# d = { 1: (255, 175, 0), # blueish
-#       2: (0, 0, 0) } # black (pixel)
-
-
-class Goal:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def __str__(self):
-        return f"{self.x}, {self.y}"
-    
-class Square:
+class Environment:
     def __init__(self):
-        # self.x = np.random.randint(0, SIZE)
-        # self.y = np.random.randint(0, SIZE)
-        self.x = 0
-        self.y = 0
-        ### 
-        # later: instead of starting in (0,0), 
-        # start in state-action pair with greatest q-value
-        ###
+        env_time = time.time()
 
-    # just a toString for debugging
-    def __str__(self):
-        return f"{self.x}, {self.y}"
-    
-    # to subtract Square from goal (pixel)
-    def __sub__(self, goal):
-        return (self.x-goal.x, self.y-goal.y)
+        self.Goal = self.Goal()
+        self.Square = self.Square()
 
-    def action(self, choice):
-        '''
-        4 different movement options:
-            0. rechts: ++x
-            1. links: --x
-            2. runter: ++y
-            3. hoch: --y
-        '''
-        if choice == 0:
-            self.move(x=1)
-        elif choice == 1:
-            self.move(x=-1)
-        elif choice == 2:
-            self.move(y=1)
-        elif choice == 3:
-            self.move(y=-1)
+        # import coordinates (goals) from file
+        loc = ("./table.xlsx")
+        wb = xlrd.open_workbook(loc)
+        sheet = wb.sheet_by_index(0)
+        print(sheetToString(sheet))
 
-    def move(self, x=False, y=False):
-        self.x += x
-        self.y += y
+        x_values = []
+        y_values = []
+        for i in range(1, sheet.nrows):
+            x_values.append(sheet.cell_value(i,2))
+        for i in range(1, sheet.nrows):
+            y_values.append(sheet.cell_value(i,3))
 
-        # fix boundaries
-        if self.x < 0:
+        goals = []
+        for pic_pos in range(sheet.nrows-1):
+            goals.append(self.Goal(x_values[pic_pos],y_values[pic_pos]))
+            print(f"goal created: nr = {pic_pos} | x = {goals[pic_pos].x} , y = {goals[pic_pos].y}")
+
+        print(f"--- time to create environment: {time.time()-env_time} ---")
+
+    class Goal:
+        def __init__(self, x, y):
+            self.x = x
+            self.y = y
+
+        def __str__(self):
+            return f"{self.x}, {self.y}"
+        
+    class Square:
+        def __init__(self):
+            # self.x = np.random.randint(0, SIZE)
+            # self.y = np.random.randint(0, SIZE)
             self.x = 0
-        elif self.x > SIZE-1:
-            self.x = SIZE-1
-        if self.y < 0:
             self.y = 0
-        elif self.y > SIZE-1:
-            self.y = SIZE-1
+            ### 
+            # later: instead of starting in (0,0), 
+            # start in state-action pair with greatest q-value
+            ###
 
-def createEnv():
-    # import coordinates (goals) from file
-    loc = ("./table.xlsx")
-    wb = xlrd.open_workbook(loc)
-    sheet = wb.sheet_by_index(0)
-    print(sheetToString(sheet))
+        # just a toString for debugging
+        def __str__(self):
+            return f"{self.x}, {self.y}"
+        
+        # to subtract Square from goal (pixel)
+        def __sub__(self, goal):
+            return (self.x-goal.x, self.y-goal.y)
 
-    x_values = []
-    y_values = []
-    for i in range(1, sheet.nrows):
-        x_values.append(sheet.cell_value(i,2))
-    for i in range(1, sheet.nrows):
-        y_values.append(sheet.cell_value(i,3))
+        def action(self, choice):
+            '''
+            4 different movement options:
+                0. rechts: ++x
+                1. links: --x
+                2. runter: ++y
+                3. hoch: --y
+            '''
+            if choice == 0:
+                self.move(x=1)
+            elif choice == 1:
+                self.move(x=-1)
+            elif choice == 2:
+                self.move(y=1)
+            elif choice == 3:
+                self.move(y=-1)
 
-    goals = []
-    for pic_pos in range(sheet.nrows-1):
-        goals.append(Goal(x_values[pic_pos],y_values[pic_pos]))
-        print(f"goal created: nr = {pic_pos} | x = {goals[pic_pos].x} , y = {goals[pic_pos].y}")
+        def move(self, x=False, y=False):
+            self.x += x
+            self.y += y
 
-    # PoC for creating a Goal incrementally
-    # for i in range(sheet.nrows-1):
-    #     print(f"x_position: {i} | x_value = {x_values[i]}")
+            # fix boundaries
+            if self.x < 0:
+                self.x = 0
+            elif self.x > SIZE-1:
+                self.x = SIZE-1
+            if self.y < 0:
+                self.y = 0
+            elif self.y > SIZE-1:
+                self.y = SIZE-1
 
-    # testing
-    # agent = Square()
-    # goal = Goal(x=9,y=9)
-    # print(agent)
-    # print(agent-goal)
-    # agent.action(0)
-    # print(agent-goal)
+# def createEnv():
+    # # import coordinates (goals) from file
+    # loc = ("./table.xlsx")
+    # wb = xlrd.open_workbook(loc)
+    # sheet = wb.sheet_by_index(0)
+    # print(sheetToString(sheet))
 
-    print(f"--- time to create environment: {time.time()-env_time} ---")
+    # x_values = []
+    # y_values = []
+    # for i in range(1, sheet.nrows):
+    #     x_values.append(sheet.cell_value(i,2))
+    # for i in range(1, sheet.nrows):
+    #     y_values.append(sheet.cell_value(i,3))
+
+    # goals = []
+    # for pic_pos in range(sheet.nrows-1):
+    #     goals.append(Goal(x_values[pic_pos],y_values[pic_pos]))
+    #     print(f"goal created: nr = {pic_pos} | x = {goals[pic_pos].x} , y = {goals[pic_pos].y}")
+
+    # # PoC for creating a Goal incrementally
+    # # for i in range(sheet.nrows-1):
+    # #     print(f"x_position: {i} | x_value = {x_values[i]}")
+
+    # # testing
+    # # agent = Square()
+    # # goal = Goal(x=9,y=9)
+    # # print(agent)
+    # # print(agent-goal)
+    # # agent.action(0)
+    # # print(agent-goal)
+
+    # print(f"--- time to create environment: {time.time()-env_time} ---")
 #################################################################
 ### HERE STARTS MODEL DEVELOPMENT
 # model_time = time.time()
