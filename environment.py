@@ -1,99 +1,90 @@
 from parameters import SIZE
 import numpy as np
 from PIL import Image
-import cv2
-import matplotlib.pyplot as plt
-# import pickle
 from matplotlib import style
 import time
-import xlrd
 from lib.toStringExt import sheetToString
 from lib.generateplot import write_event
 
-class Environment:
+# class Environment:
+#     def __init__(self):
+#         # env_time = time.time()
+#         self.Goal = self.Goal()
+#         self.Square = self.Square()
+        # # import coordinates (goals) from file
+        # loc = ("./table.xlsx")
+        # wb = xlrd.open_workbook(loc)
+        # sheet = wb.sheet_by_index(0)
+        # print(sheetToString(sheet))
+        # x_values = []
+        # y_values = []
+        # for i in range(1, sheet.nrows):
+        #     x_values.append(sheet.cell_value(i,2))
+        # for i in range(1, sheet.nrows):
+        #     y_values.append(sheet.cell_value(i,3))
+        # self.goals = []
+        # for pic_pos in range(sheet.nrows-1):
+        #     self.goals.append(self.Goal(x_values[pic_pos],y_values[pic_pos]))
+        #     print(f"goal created: nr = {pic_pos} | x = {self.goals[pic_pos].x} , y = {self.goals[pic_pos].y}")
+        # print(f"--- time to create environment: {time.time()-env_time} ---")
+
+class Goal:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f"{self.x}, {self.y}"
+        
+class Square:
     def __init__(self):
-        env_time = time.time()
+        # self.x = np.random.randint(0, SIZE)
+        # self.y = np.random.randint(0, SIZE)
+        self.x = 0
+        self.y = 0
+        ### 
+        # later: instead of starting in (0,0), 
+        # start in state-action pair with greatest q-value
+        ###
 
-        self.Goal = self.Goal()
-        self.Square = self.Square()
+    # just a toString for debugging
+    def __str__(self):
+        return f"{self.x}, {self.y}"
+    
+    # to subtract Square from goal (pixel)
+    def __sub__(self, goal):
+        return (self.x-goal.x, self.y-goal.y)
 
-        # import coordinates (goals) from file
-        loc = ("./table.xlsx")
-        wb = xlrd.open_workbook(loc)
-        sheet = wb.sheet_by_index(0)
-        print(sheetToString(sheet))
+    def action(self, choice):
+        '''
+        4 different movement options:
+            0. rechts: ++x
+            1. links: --x
+            2. runter: ++y
+            3. hoch: --y
+        '''
+        if choice == 0:
+            self.move(x=1)
+        elif choice == 1:
+            self.move(x=-1)
+        elif choice == 2:
+            self.move(y=1)
+        elif choice == 3:
+            self.move(y=-1)
 
-        x_values = []
-        y_values = []
-        for i in range(1, sheet.nrows):
-            x_values.append(sheet.cell_value(i,2))
-        for i in range(1, sheet.nrows):
-            y_values.append(sheet.cell_value(i,3))
+    def move(self, x=False, y=False):
+        self.x += x
+        self.y += y
 
-        goals = []
-        for pic_pos in range(sheet.nrows-1):
-            goals.append(self.Goal(x_values[pic_pos],y_values[pic_pos]))
-            print(f"goal created: nr = {pic_pos} | x = {goals[pic_pos].x} , y = {goals[pic_pos].y}")
-
-        print(f"--- time to create environment: {time.time()-env_time} ---")
-
-    class Goal:
-        def __init__(self, x, y):
-            self.x = x
-            self.y = y
-
-        def __str__(self):
-            return f"{self.x}, {self.y}"
-        
-    class Square:
-        def __init__(self):
-            # self.x = np.random.randint(0, SIZE)
-            # self.y = np.random.randint(0, SIZE)
+        # fix boundaries
+        if self.x < 0:
             self.x = 0
+        elif self.x > SIZE-1:
+            self.x = SIZE-1
+        if self.y < 0:
             self.y = 0
-            ### 
-            # later: instead of starting in (0,0), 
-            # start in state-action pair with greatest q-value
-            ###
-
-        # just a toString for debugging
-        def __str__(self):
-            return f"{self.x}, {self.y}"
-        
-        # to subtract Square from goal (pixel)
-        def __sub__(self, goal):
-            return (self.x-goal.x, self.y-goal.y)
-
-        def action(self, choice):
-            '''
-            4 different movement options:
-                0. rechts: ++x
-                1. links: --x
-                2. runter: ++y
-                3. hoch: --y
-            '''
-            if choice == 0:
-                self.move(x=1)
-            elif choice == 1:
-                self.move(x=-1)
-            elif choice == 2:
-                self.move(y=1)
-            elif choice == 3:
-                self.move(y=-1)
-
-        def move(self, x=False, y=False):
-            self.x += x
-            self.y += y
-
-            # fix boundaries
-            if self.x < 0:
-                self.x = 0
-            elif self.x > SIZE-1:
-                self.x = SIZE-1
-            if self.y < 0:
-                self.y = 0
-            elif self.y > SIZE-1:
-                self.y = SIZE-1
+        elif self.y > SIZE-1:
+            self.y = SIZE-1
 
 # def createEnv():
     # # import coordinates (goals) from file

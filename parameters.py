@@ -4,8 +4,10 @@ SIZE = 100
 # this is per training data (picture) -> 50000 per pic
 EPISODES = 10000
 
+# punishing the agent for each step
 MOVE_PENALTY = 1
 
+# rewarding the agent when it reaches the goal
 GOAL_REWARD = 100
 
 epsilon = 0.5
