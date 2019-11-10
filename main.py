@@ -12,7 +12,7 @@ import time
 env_time = time.time()
 
 # import coordinates (goals) from file
-loc = ("./table.xlsx")
+loc = ("./data/table_300.xlsx")
 wb = xlrd.open_workbook(loc)
 sheet = wb.sheet_by_index(0)
 print(sheetToString(sheet))

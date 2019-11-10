@@ -6,28 +6,6 @@ import time
 from lib.toStringExt import sheetToString
 from lib.generateplot import write_event
 
-# class Environment:
-#     def __init__(self):
-#         # env_time = time.time()
-#         self.Goal = self.Goal()
-#         self.Square = self.Square()
-        # # import coordinates (goals) from file
-        # loc = ("./table.xlsx")
-        # wb = xlrd.open_workbook(loc)
-        # sheet = wb.sheet_by_index(0)
-        # print(sheetToString(sheet))
-        # x_values = []
-        # y_values = []
-        # for i in range(1, sheet.nrows):
-        #     x_values.append(sheet.cell_value(i,2))
-        # for i in range(1, sheet.nrows):
-        #     y_values.append(sheet.cell_value(i,3))
-        # self.goals = []
-        # for pic_pos in range(sheet.nrows-1):
-        #     self.goals.append(self.Goal(x_values[pic_pos],y_values[pic_pos]))
-        #     print(f"goal created: nr = {pic_pos} | x = {self.goals[pic_pos].x} , y = {self.goals[pic_pos].y}")
-        # print(f"--- time to create environment: {time.time()-env_time} ---")
-
 class Goal:
     def __init__(self, x, y):
         self.x = x

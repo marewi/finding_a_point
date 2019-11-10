@@ -1,5 +1,5 @@
 # size of grid environment
-SIZE = 100
+SIZE = 128
 
 # this is per training data (picture) -> 50000 per pic
 EPISODES = 10000
