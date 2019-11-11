@@ -1,6 +1,6 @@
 from environment import Square, Goal
 from model_table import Model_table
-from parameters import GOAL_REWARD, MOVE_PENALTY, EPISODES, epsilon, LEARNING_RATE, DISCOUNT, EPISODE_DECAY, SHOW_EVERY
+from parameters import GOAL_REWARD, MOVE_PENALTY, EPISODES, steps, epsilon, LEARNING_RATE, DISCOUNT, EPISODE_DECAY, SHOW_EVERY
 from lib.generateplot import write_event
 from lib.toStringExt import sheetToString
 import xlrd
@@ -34,6 +34,9 @@ model = Model_table()
 
 ######################################
 # train model
+
+# TODO: use q_learning() --> see test.py
+
 learning_time = time.time()
 
 episode_rewards = []
@@ -47,7 +50,7 @@ for pic_pos in range(len(goals)):
         #     print(f"\ton eps: {episode}, epsilon is {epsilon}")
         #     print(f"\t{SHOW_EVERY} ep mean: {np.mean(episode_rewards[-SHOW_EVERY:])}")
         episode_reward = 0
-        for i in range(200): # TODO: why 200? & putting in parameters
+        for i in range(steps):
             obs = agent-goals[pic_pos]
             # print(f"i = {i} | obs: {obs}")
             if np.random.random() > epsilon:
