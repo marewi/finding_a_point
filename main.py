@@ -1,6 +1,7 @@
 from environment import Square, Goal
 from model_table import Model_table
-from parameters import GOAL_REWARD, MOVE_PENALTY, EPISODES, steps, epsilon, LEARNING_RATE, DISCOUNT, EPISODE_DECAY, SHOW_EVERY
+from parameters import GOAL_REWARD, MOVE_PENALTY, EPISODES, steps, epsilon, LEARNING_RATE, \
+    DISCOUNT, EPISODE_DECAY, SHOW_EVERY
 from lib.generateplot import write_event
 from lib.toStringExt import sheetToString
 import xlrd
