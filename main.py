@@ -85,6 +85,8 @@ print(f"--- time to train model: {time.time()-learning_time} ---")
 moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,))/SHOW_EVERY, mode='valid')
 print(f"moving_avg: {moving_avg}")
 
+print(f"q_table: {model.q_table}")
+
 # show results
 # TODO: dont save events in this dir because of git... this isnt so bad for logging for example
 write_event(moving_avg, "moving_avg")
