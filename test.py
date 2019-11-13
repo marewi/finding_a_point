@@ -6,4 +6,3 @@ from main import model
 r, t = q_learning(EPISODES, goals, steps, epsilon, model, GOAL_REWARD, MOVE_PENALTY, LEARNING_RATE, DISCOUNT, EPISODE_DECAY)
 
 print(f"TEST::::::::::: {r}")
-
