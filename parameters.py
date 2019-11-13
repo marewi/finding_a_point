@@ -13,6 +13,7 @@ MOVE_PENALTY = 1
 # rewarding the agent when it reaches the goal
 GOAL_REWARD = steps/2 #100
 
+# controls randomnes of the agent
 epsilon = 0.5
 
 # every episode will be epsilon*EPISODE_DECAY
