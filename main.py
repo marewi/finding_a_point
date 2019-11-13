@@ -85,7 +85,8 @@ for pic_pos in range(2):#len(goals)):
             episode_reward += reward
             if reward == GOAL_REWARD:
                 break
-        print(f"picture no: {pic_pos} | episode: {episode} | episode_reward: {episode_reward}")
+        print(f"picture no: {pic_pos} | goal: {goals[pic_pos]} | episode: {episode} |" +
+            f"episode_reward: {episode_reward}")
         x_of_obs_with_max_q_old = x_of_obs_with_max_q
         y_of_obs_with_max_q_old = y_of_obs_with_max_q
         episode_rewards.append(episode_reward)
