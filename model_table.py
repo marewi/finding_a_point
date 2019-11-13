@@ -12,11 +12,11 @@ class Model_table:
         if start_q_table is None:
             # self.q_table = {}
             # i,ii = {-127;128}
-            for i in range(-SIZE+1, SIZE):
-                for ii in range(-SIZE+1, SIZE):
+            for i in range(0, SIZE):
+                for ii in range(0, SIZE):
                     self.q_table[(i,ii)] = [np.random.uniform(-5,0) for i in range(4)]
         # else:
         #     with open(start_q_table, "rb") as f:
         #         self.q_table = pickle.load(f)
-        print(f"q_table TEST: {self.q_table[(0,0)]}")
+        print(f"q_table TEST: {self.q_table[(127,127)]}")
         print(f"--- time to create q-table model: {time.time()-model_time} ---")

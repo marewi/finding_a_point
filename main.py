@@ -59,7 +59,8 @@ for pic_pos in range(2):#len(goals)):
                 f"--> {x_of_obs_with_max_q, y_of_obs_with_max_q}")
         episode_reward = 0
         for i in range(steps):
-            obs = agent-goals[pic_pos]
+            # obs = agent-goals[pic_pos]
+            obs = (agent.x, agent.y)
             if obs[0] > 128 or obs[0] < -128 or obs[1] > 128 or obs[1] < -128:
                 print(f"i = {i} | obs: {obs}")
             if np.random.random() > epsilon:
@@ -73,7 +74,8 @@ for pic_pos in range(2):#len(goals)):
                 reward = GOAL_REWARD
             else:
                 reward = -MOVE_PENALTY
-            new_obs = agent - goals[pic_pos] # new observation
+            # new_obs = agent - goals[pic_pos] # new observation
+            new_obs = (agent.x, agent.y)
             max_future_q = np.max(q_table[new_obs]) # max Q-value for this new obs
             current_q = q_table[obs][action] # current Q for our chosen action
             # calculations:
