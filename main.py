@@ -47,22 +47,21 @@ x_of_obs_with_max_q_old = 0
 y_of_obs_with_max_q_old = 0
 episode_rewards = []
 epsilons = []
-for pic_pos in range(2):#len(goals)):
-    # print(f"picture no: {pic_pos} | goal: {goals[pic_pos]}")
+for pic_pos in range(len(goals)):
     for episode in range(EPISODES):
-        # print(f"\tepisode: {episode}")
+        # find obs with max Q value
         x_of_obs_with_max_q, y_of_obs_with_max_q = max(q_table.items(), key=operator.itemgetter(1))[0]
-        # print(f"obs with max q-value: {x_of_obs_with_max_q, y_of_obs_with_max_q}")
+        # let agent start in this obs
         agent = Square(x_of_obs_with_max_q, y_of_obs_with_max_q)
+        # print new agent start if its coordinates have changed
         if x_of_obs_with_max_q_old != x_of_obs_with_max_q or y_of_obs_with_max_q_old != y_of_obs_with_max_q:
             print(f"agent start has changed: {x_of_obs_with_max_q_old, y_of_obs_with_max_q_old} " +
                 f"--> {x_of_obs_with_max_q, y_of_obs_with_max_q}")
         episode_reward = 0
         for i in range(steps):
-            # obs = agent-goals[pic_pos]
             obs = (agent.x, agent.y)
-            if obs[0] > 128 or obs[0] < -128 or obs[1] > 128 or obs[1] < -128:
-                print(f"i = {i} | obs: {obs}")
+            # if obs[0] > SIZE-1 or obs[0] < 0 or obs[1] > SIZE-1 or obs[1] < 0:
+            #     print(f"i = {i} | obs: {obs}")
             if np.random.random() > epsilon:
                 action = np.argmax(q_table[obs]) # get action
             else:
@@ -70,15 +69,13 @@ for pic_pos in range(2):#len(goals)):
             agent.action(action) # take the action
             # rewarding:
             if agent.x == goals[pic_pos].x and agent.y == goals[pic_pos].y:
-                # print("### GOAL FOUND ###")
                 reward = GOAL_REWARD
             else:
                 reward = -MOVE_PENALTY
-            # new_obs = agent - goals[pic_pos] # new observation
             new_obs = (agent.x, agent.y)
             max_future_q = np.max(q_table[new_obs]) # max Q-value for this new obs
             current_q = q_table[obs][action] # current Q for our chosen action
-            # calculations:
+            # Q value calculations:
             if reward == GOAL_REWARD:
                 new_q = GOAL_REWARD
             else:
@@ -104,5 +101,5 @@ print(f"moving_avg: {moving_avg}")
 
 # show results
 # TODO: dont save events in this dir because of git... this isnt so bad for logging for example
-# write_event(moving_avg, "moving_avg")
-# write_event(epsilons, "epsilon")
+write_event(moving_avg, "moving_avg")
+write_event(epsilons, "epsilon")

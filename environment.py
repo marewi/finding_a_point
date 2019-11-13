@@ -26,14 +26,13 @@ class Square:
         self.x = x
         self.y = y
 
-
     # just a toString for debugging
     def __str__(self):
         return f"{self.x}, {self.y}"
     
     # to subtract Square from goal (pixel)
-    def __sub__(self, goal):
-        return (self.x-goal.x, self.y-goal.y)
+    # def __sub__(self, goal):
+    #     return (self.x-goal.x, self.y-goal.y)
 
     def action(self, choice):
         '''
@@ -55,7 +54,6 @@ class Square:
     def move(self, x=False, y=False):
         self.x += x
         self.y += y
-        # print(f"new x,y: {self.x, self.y}")
 
         # fix boundaries
         if self.x < 0:
