@@ -15,11 +15,12 @@ class Goal:
         return f"{self.x}, {self.y}"
         
 class Square:
+    '''
+    params:
+        x: give an x-value as starting point
+        y: give an y-value as starting point
+    '''
     def __init__(self, x, y):
-        '''
-            x: give an x-value as starting point
-            y: give an y-value as starting point
-        '''
         # self.x = np.random.randint(0, SIZE)
         # self.y = np.random.randint(0, SIZE)
         self.x = x
@@ -54,6 +55,7 @@ class Square:
     def move(self, x=False, y=False):
         self.x += x
         self.y += y
+        # print(f"new x,y: {self.x, self.y}")
 
         # fix boundaries
         if self.x < 0:

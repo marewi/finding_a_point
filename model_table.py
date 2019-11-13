@@ -8,8 +8,10 @@ class Model_table:
         model_time = time.time()
         self.q_table = {}
         start_q_table = None # here can be inserted a existing file
+        # print(str(range(-SIZE+1, SIZE)))
         if start_q_table is None:
             # self.q_table = {}
+            # i,ii = {-127;128}
             for i in range(-SIZE+1, SIZE):
                 for ii in range(-SIZE+1, SIZE):
                     self.q_table[(i,ii)] = [np.random.uniform(-5,0) for i in range(4)]
