@@ -16,7 +16,5 @@ docker run --rm -it -p 0.0.0.0:6006:6006 finding-a-point
 - [ ] testing other algorithms instead of q-learning
 
 
-environment implementaion inspired by 
+environment implementaion inspired by
 https://pythonprogramming.net/own-environment-q-learning-reinforcement-learning-python-tutorial/
-
-
