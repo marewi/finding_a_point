@@ -20,13 +20,14 @@ sheet = wb.sheet_by_index(0)
 print(sheetToString(sheet))
 x_values = []
 y_values = []
+logo_values = []
 for i in range(1, sheet.nrows):
     x_values.append(sheet.cell_value(i,2))
-for i in range(1, sheet.nrows):
     y_values.append(sheet.cell_value(i,3))
+    logo_values.append(sheet.cell_value(i,1))
 goals = []
 for pic_pos in range(sheet.nrows-1):
-    goals.append(Goal(x_values[pic_pos],y_values[pic_pos]))
+    goals.append(Goal(x_values[pic_pos],y_values[pic_pos], logo_values[pic_pos]))
     print(f"goal created: nr = {pic_pos} | x = {goals[pic_pos].x} , y = {goals[pic_pos].y}")
 print(f"--- time to create environment: {time.time()-env_time} ---")
 

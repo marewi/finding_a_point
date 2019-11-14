@@ -7,12 +7,13 @@ from lib.toStringExt import sheetToString
 from lib.generateplot import write_event
 
 class Goal:
-    def __init__(self, x, y):
+    def __init__(self, x, y, logo):
         self.x = x
         self.y = y
+        self.logo = logo
 
     def __str__(self):
-        return f"{self.x}, {self.y}"
+        return f"{self.x}, {self.y}, {self.logo}"
         
 class Square:
     '''
