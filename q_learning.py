@@ -1,7 +1,5 @@
 from parameters import steps, epsilon, GOAL_REWARD, MOVE_PENALTY, EPISODES, LEARNING_RATE, DISCOUNT, EPISODE_DECAY, SHOW_EVERY
 from environment import Square
-# from main import goals
-# from main import model
 import numpy as np
 import operator
 import time
