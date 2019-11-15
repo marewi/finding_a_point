@@ -13,7 +13,7 @@ class Goal:
         self.logo = logo
 
     def __str__(self):
-        return f"{self.x}, {self.y}, {self.logo}"
+        return f"x: {self.x}, y: {self.y}, logo: {self.logo}"
         
 class Square:
     '''

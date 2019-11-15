@@ -2,7 +2,7 @@
 SIZE = 128
 
 # this is per training data (picture) -> 50000 per pic
-EPISODES = 100
+EPISODES = 1
 
 # how often is the agent allowed to try to reach the goal?
 steps = 10000 #200
@@ -11,7 +11,7 @@ steps = 10000 #200
 MOVE_PENALTY = 1
 
 # rewarding the agent when it reaches the goal
-GOAL_REWARD = steps/2 #100
+GOAL_REWARD = steps/2
 
 # controls randomnes of the agent
 epsilon = 0.5
