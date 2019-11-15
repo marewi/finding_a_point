@@ -6,7 +6,8 @@ import time
 from termcolor import colored
 
 def q_learning(goals, model):
-    '''
+    ''' q_learning(goals, model) -> episode_rewards, q_table, epsilons
+    
     parameters:
         goals: use this goals data...
         model: ...to train this model

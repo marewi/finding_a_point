@@ -27,3 +27,6 @@ LEARNING_RATE = 0.1
 
 # aka visual range: weighted the influence of (max-) future q-value
 DISCOUNT = 0.95
+
+# which logos should be used
+# strategy_filter = xxx

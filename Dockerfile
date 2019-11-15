@@ -18,8 +18,8 @@ WORKDIR '/finding-a-point'
 RUN git init && \
     git remote add origin https://c1cabe97056d6f0fd36f0ae90f3681ed9c650e11:x-oauth-basic@github.com/marewi/finding_a_point.git && \
     # git clone -b develop https://c1cabe97056d6f0fd36f0ae90f3681ed9c650e11:x-oauth-basic@github.com/marewi/finding_a_point.git /finding-a-point && \
-    git pull origin develop && \
-    git checkout develop && \
+    # git pull origin develop && \
+    # git checkout develop && \
     git config --global user.email "marc-wittlinger@gmx.de" && \
     git config --global user.name "Marc Wittlinger"
 
