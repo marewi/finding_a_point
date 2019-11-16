@@ -54,14 +54,14 @@ def main(argv):
     episode_rewards, q_table, epsilons = q_learning(goals, model)
     print(colored(f"--- time to train model: {time.time()-learning_time} ---", 'blue'))
 
-    # moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,))/SHOW_EVERY, mode='valid')
-    # print(f"moving_avg: {moving_avg}")
+    moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,))/SHOW_EVERY, mode='valid')
+    print(f"moving_avg: {moving_avg}")
     # print(f"q_table: {q_table}")
 
     # show results
     # TODO: dont save events in this dir because of git... this isnt so bad for logging for example
-    # write_event(moving_avg, "moving_avg")
-    # write_event(epsilons, "epsilon")
+    write_event(moving_avg, "moving_avg")
+    write_event(epsilons, "epsilon")
     
 if __name__ == "__main__":
     main(sys.argv[1:])

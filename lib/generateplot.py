@@ -1,11 +1,13 @@
-# import tensorflow.compat.v1 as tf
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+# import tensorflow as tf
 import matplotlib.pyplot as plt
 import io
 
 def write_event(data, plotTitle="plotTitle"):
     '''
-    data, plotTitle
+    params:
+        data
+        plotTitle
     '''
     def gen_plot(data, plotTitle):
         """Create a pyplot plot and save to buffer."""
