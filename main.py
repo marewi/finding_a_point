@@ -21,8 +21,8 @@ def main(argv):
     except getopt.GetoptError:
         print(colored("option doesnt exist", 'red'))
         sys.exit(2)
-    if args == []: 
-        raise Exception(colored("no arguments", 'red'))
+    if opts == [('-s', '')] and args == []: 
+        raise Exception(colored("options for strategy was set, but no arguments", 'red'))
     if opts == []:
         print(f"no data_filter was set")
     else:
