@@ -13,6 +13,7 @@ docker run --rm -it -p 0.0.0.0:6006:6006 finding-a-point
     - [x] solving substraction problem
 - [ ] train policy for each group of points (e.g. for each logo)
     - [ ] find optimal sequence of pictures for training model (maybe new epsilon for each picture)
+- [ ] train model with neural network
 - [ ] testing other algorithms instead of q-learning
 
 
