@@ -30,3 +30,4 @@ DISCOUNT = 0.95
 
 # which logos should be used
 # strategy_filter = xxx
+# is created as a terminal option at the moment

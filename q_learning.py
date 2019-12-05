@@ -66,4 +66,5 @@ def q_learning(goals, model):
             episode_rewards.append(episode_reward)
             epsilons.append(epsilon)
             epsilon *= EPISODE_DECAY
+        # TODO: decaying epsilon for each new goal (picture)
     return(episode_rewards, q_table, epsilons)
