@@ -23,6 +23,9 @@ def q_learning(goals, model):
     episode_rewards = []
     epsilons = []
     for pic_pos in range(len(goals)):
+        # reset epsilon for each new picture
+        eps = epsilon
+        print(colored(f"epsilon reset to {eps}", 'yellow'))
         for episode in range(EPISODES):
             # find obs with max Q value
             x_of_obs_with_max_q, y_of_obs_with_max_q = max(q_table.items(), key=operator.itemgetter(1))[0]
@@ -37,7 +40,7 @@ def q_learning(goals, model):
                 obs = (agent.x, agent.y)
                 # if obs[0] > SIZE-1 or obs[0] < 0 or obs[1] > SIZE-1 or obs[1] < 0:
                 #     print(f"i = {i} | obs: {obs}")
-                if np.random.random() > epsilon:
+                if np.random.random() > eps:
                     action = np.argmax(q_table[obs]) # get action
                 else:
                     action = np.random.randint(0,4) # get action
@@ -64,7 +67,6 @@ def q_learning(goals, model):
             x_of_obs_with_max_q_old = x_of_obs_with_max_q
             y_of_obs_with_max_q_old = y_of_obs_with_max_q
             episode_rewards.append(episode_reward)
-            epsilons.append(epsilon)
-            epsilon *= EPISODE_DECAY
-        # TODO: decaying epsilon for each new goal (picture)
+            epsilons.append(eps)
+            eps *= EPISODE_DECAY
     return(episode_rewards, q_table, epsilons)

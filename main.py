@@ -61,7 +61,7 @@ def main(argv):
     # show results
     # TODO: dont save events in this dir because of git... this isnt so bad for logging for example
     write_event(moving_avg, "moving_avg")
-    write_event(epsilons, "epsilon")
+    # write_event(epsilons, "epsilon")
     
 if __name__ == "__main__":
     main(sys.argv[1:])
