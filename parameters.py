@@ -2,7 +2,7 @@
 SIZE = 128
 
 # this is per training data (picture) -> 50000 per pic
-EPISODES = 100
+EPISODES = 1000
 
 # how often is the agent allowed to try to reach the goal
 steps = 10000 #200
@@ -20,7 +20,7 @@ epsilon = 0.5
 EPISODE_DECAY = 0.9999
 
 # how often to play through env visually
-SHOW_EVERY = 10
+SHOW_EVERY = 1
 
 # aka step size: weighted the strength of change of q-value
 LEARNING_RATE = 0.1
