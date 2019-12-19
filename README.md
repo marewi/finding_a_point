@@ -7,6 +7,10 @@ docker build --rm -f Dockerfile -t finding-a-point .
 ### run container
 docker run --rm -it -p 0.0.0.0:6006:6006 finding-a-point
 
+### clone repo in container
+git checkout <branch-name>
+git pull
+
 ### run script
 python main.py -s window/triangle/hook
 
@@ -14,7 +18,7 @@ python main.py -s window/triangle/hook
 - [x] dynamic start
     - [x] solving substraction problem
 - [x] train policy for each group of points (e.g. for each logo)
-    - [x] find optimal sequence of pictures for training model (maybe new epsilon for each picture)
+    - [?] find optimal sequence of pictures for training model (maybe new epsilon for each picture)
 - [ ] train model with neural network
 - [ ] testing other algorithms instead of q-learning
 - [ ] any parallelism possible?
