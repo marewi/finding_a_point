@@ -19,6 +19,7 @@ python main.py -s window/triangle/hook
     - [x] solving substraction problem
 - [x] train policy for each group of points (e.g. for each logo)
     - [?] find optimal sequence of pictures for training model (maybe new epsilon for each picture)
+- [ ] change measurement to accumulated reward & reward per episode
 - [ ] train model with neural network
 - [ ] testing other algorithms instead of q-learning
 - [ ] any parallelism possible?

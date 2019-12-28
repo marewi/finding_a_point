@@ -37,7 +37,7 @@ def main(argv):
     ######################################
     # create environment
     env_time = time.time()
-    loc = "./data/table_300.xlsx"
+    loc = "./data/table_3000_clustered.xlsx"
     goals = data_input(loc, data_filter)
 
     print(colored(f"--- time to create environment: {time.time()-env_time} ---", 'blue'))

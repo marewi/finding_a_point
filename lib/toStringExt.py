@@ -12,7 +12,7 @@ def sheetToString(self):
 
     for i in range(1,self.nrows):
         for ii in range(self.ncols):
-            data.append(str(self.cell_value(i,ii)))
+            data.append(int(self.cell_value(i,ii)))
         table.add_row(data)
         data = []
         

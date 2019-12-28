@@ -2,10 +2,10 @@
 SIZE = 128
 
 # this is per training data (picture) -> 50000 per pic
-EPISODES = 1000
+EPISODES = 10 # 10000
 
 # how often is the agent allowed to try to reach the goal
-steps = 10000 #200
+steps = 10000
 
 # punishing the agent for each step
 MOVE_PENALTY = 1

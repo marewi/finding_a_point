@@ -16,7 +16,7 @@ def data_input(filename, data_filter):
     y_values = []
     logo_values = []
     for row in range(1, sheet.nrows):
-        if data_filter in  ['', sheet.cell_value(row,1)]:
+        if data_filter in  ['', str(int(sheet.cell_value(row,1)))]:
             x_values.append(sheet.cell_value(row,2))
             y_values.append(sheet.cell_value(row,3))
             logo_values.append(sheet.cell_value(row,1))
