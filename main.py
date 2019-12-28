@@ -1,3 +1,4 @@
+import tensorflow as tf
 from environment import Square, Goal
 from model_table import Model_table
 from parameters import GOAL_REWARD, MOVE_PENALTY, EPISODES, steps, epsilon, LEARNING_RATE, \
@@ -69,8 +70,7 @@ def main(argv):
 
     ######################################
     # measure the results
-    accumulated_reward = sum(episode_rewards)
-
+    accumulated_reward = np.add.accumulate(episode_rewards)
     # moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,))/SHOW_EVERY, mode='valid')
     # print(f"moving_avg: {moving_avg}")
     # print(f"q_table: {q_table}")
@@ -82,6 +82,7 @@ def main(argv):
     # write_event(epsilons, "epsilon")
     write_event(episode_rewards, 'rewards per episode')
     write_event(accumulated_reward, 'accumulated reward')
+
     
 if __name__ == "__main__":
     main(sys.argv[1:])

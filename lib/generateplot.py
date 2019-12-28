@@ -1,7 +1,7 @@
 import tensorflow as tf
-# import tensorflow as tf
 import matplotlib.pyplot as plt
 import io
+from lib.toStringExt import paremetersToString
 
 def write_event(data, plotTitle="plotTitle"):
     '''
@@ -30,7 +30,8 @@ def write_event(data, plotTitle="plotTitle"):
 
     # Add image summary
     summary_op1 = tf.summary.image(plotTitle, image)
-    #summary_op2 = tf.summary.text('tag1', tf.convert_to_tensor('Tag1: Random Text 1'))
+    paras = paremetersToString()
+    summary_op2 = tf.summary.text("testName", paras)
 
     with tf.Session() as sess:
         summary = sess.run(summary_op1)

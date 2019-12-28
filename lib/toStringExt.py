@@ -1,4 +1,5 @@
 from prettytable import PrettyTable
+from parameters import *
 
 def sheetToString(self):
     '''
@@ -17,3 +18,11 @@ def sheetToString(self):
         data = []
         
     return(table)
+
+def paremetersToString():
+    '''
+    converting all learning parameters to string
+    '''
+    result = "SIZE: {SIZE}"
+    
+    return(result)
