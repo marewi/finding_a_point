@@ -11,6 +11,8 @@ import numpy as np
 import operator
 import time
 import sys, getopt
+import os
+import shutil
 from termcolor import colored
 
 def main(argv):
@@ -35,6 +37,17 @@ def main(argv):
                 print(f"data_filter set to: {data_filter}")
 
     ######################################
+    # backup old logs
+    newpath = r'./oldlogs' 
+    if not os.path.exists(newpath):
+        os.makedirs(newpath)
+    source = './logs/'
+    dest = './oldlogs/'
+    files = os.listdir(source)
+    for f in files:
+        shutil.move(source+f, dest)
+
+    ######################################
     # create environment
     env_time = time.time()
     loc = "./data/table_3000_clustered.xlsx"
@@ -54,14 +67,21 @@ def main(argv):
     episode_rewards, q_table, epsilons = q_learning(goals, model)
     print(colored(f"--- time to train model: {time.time()-learning_time} ---", 'blue'))
 
-    moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,))/SHOW_EVERY, mode='valid')
-    print(f"moving_avg: {moving_avg}")
+    ######################################
+    # measure the results
+    accumulated_reward = sum(episode_rewards)
+
+    # moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,))/SHOW_EVERY, mode='valid')
+    # print(f"moving_avg: {moving_avg}")
     # print(f"q_table: {q_table}")
 
+    ######################################
     # show results
     # TODO: dont save events in this dir because of git... this isnt so bad for logging for example
-    write_event(moving_avg, "moving_avg")
+    # write_event(moving_avg, "moving_avg")
     # write_event(epsilons, "epsilon")
+    write_event(episode_rewards, 'rewards per episode')
+    write_event(accumulated_reward, 'accumulated reward')
     
 if __name__ == "__main__":
     main(sys.argv[1:])
