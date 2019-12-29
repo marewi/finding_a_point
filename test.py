@@ -1,32 +1,22 @@
-import matplotlib.pyplot as plt
-import numpy
+import operator
+import numpy as np
+
+from prettytable import PrettyTable
+
+from lib.toStringExt import sheetToString
 from model_table import Model_table
-import tensorflow as tf
 
-qtable = Model_table()
 
-x = numpy.arange(0, 1, 0.05)
-y = numpy.power(x, 2)
+qtable = Model_table().q_table
 
-fig = plt.figure()
-ax = fig.gca()
-ax.set_xticks(numpy.arange(0, 1, 0.1))
-ax.set_yticks(numpy.arange(0, 1., 0.1))
-plt.scatter(x, y)
-plt.grid()
+sheet = PrettyTable()
 
-with tf.Session() as sess:
-    summary = sess.run(fig)
-    writer = tf.summary.FileWriter('./test')
-    writer.add_summary(summary)
-    writer.close()
-sess.close()
+print(qtable)
 
-############
+# for i in range(0, len(qtable)-1):
+#     for ii in range(0, len(qtable)-1):
+#         a = np.argmax(qtable[i,ii])
+#         print(a)
 
-# plt.figure()
-# plt.plot(data)
-# plt.title(plotTitle)
-# buf = io.BytesIO()
-# plt.savefig(buf, format='png')
-# buf.seek(0)
+
+# print(sheetToString(sheet))
