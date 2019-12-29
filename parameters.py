@@ -20,7 +20,7 @@ epsilon = 0.5
 EPISODE_DECAY = 0.9999
 
 # how often to play through env visually
-SHOW_EVERY = 1
+# SHOW_EVERY = 1
 
 # aka step size: weighted the strength of change of q-value
 LEARNING_RATE = 0.1

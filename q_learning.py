@@ -1,4 +1,4 @@
-from parameters import steps, epsilon, GOAL_REWARD, MOVE_PENALTY, EPISODES, LEARNING_RATE, DISCOUNT, EPISODE_DECAY, SHOW_EVERY
+from parameters import *
 from environment import Square
 import numpy as np
 import operator

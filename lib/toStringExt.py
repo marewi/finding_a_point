@@ -23,6 +23,15 @@ def paremetersToString():
     '''
     converting all learning parameters to string
     '''
-    result = "SIZE: {SIZE}"
+    result = ('PAREMETER SETTINGS\n'
+             f'SIZE: {SIZE}x{SIZE}\n'
+             f'EPISODES: {EPISODES}\n'
+             f'steps: {steps}\n'
+             f'MOVE_PENALTY: {MOVE_PENALTY}\n'
+             f'GOAL_REWARD: {GOAL_REWARD}\n'
+             f'epsilon: {epsilon}\n'
+             f'EPISODE_DECAY: {EPISODE_DECAY}\n'
+             f'LEARNING_RATE: {LEARNING_RATE}\n'
+             f'DISCOUNT: {DISCOUNT}')
     
     return(result)

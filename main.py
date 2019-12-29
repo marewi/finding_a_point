@@ -1,12 +1,11 @@
 import tensorflow as tf
 from environment import Square, Goal
 from model_table import Model_table
-from parameters import GOAL_REWARD, MOVE_PENALTY, EPISODES, steps, epsilon, LEARNING_RATE, \
-    DISCOUNT, EPISODE_DECAY, SHOW_EVERY
+from parameters import *
 from q_learning import q_learning
 from data_input import data_input
 from lib.generateplot import write_event
-from lib.toStringExt import sheetToString
+from lib.toStringExt import sheetToString, paremetersToString
 import xlrd
 import numpy as np
 import operator
@@ -17,6 +16,13 @@ import shutil
 from termcolor import colored
 
 def main(argv):
+    # logs
+    print(tf.__version__)
+    para = paremetersToString()
+    print(para)
+
+    ######################################
+    # data filter
     data_filter = ''
     try:
         opts, args = getopt.getopt(argv,"s")
@@ -27,7 +33,7 @@ def main(argv):
     if opts == [('-s', '')] and args == []: 
         raise Exception(colored("options for strategy was set, but no arguments", 'red'))
     if opts == []:
-        print(f"no data_filter was set")
+        print(colored("no data_filter was set", 'red'))
     else:
         for opt, _ in opts:
             print(f"opt: {opt}")
@@ -35,7 +41,7 @@ def main(argv):
                 print(f"param was {opt}")
                 print(f"value was {args[0]}")
                 data_filter = args[0]
-                print(f"data_filter set to: {data_filter}")
+                print(colored(f"data_filter set to: {data_filter}", 'green'))
 
     ######################################
     # backup old logs
@@ -80,9 +86,17 @@ def main(argv):
     # TODO: dont save events in this dir because of git... this isnt so bad for logging for example
     # write_event(moving_avg, "moving_avg")
     # write_event(epsilons, "epsilon")
-    write_event(episode_rewards, 'rewards per episode')
-    write_event(accumulated_reward, 'accumulated reward')
-
+    plt1 = write_event(episode_rewards, 'rewards per episode')
+    plt2 = write_event(accumulated_reward, 'accumulated reward')
     
+    with tf.Session() as sess:
+        summary = sess.run(plt1)
+        summary2 = sess.run(plt2)
+        writer = tf.summary.FileWriter('./logs')
+        writer.add_summary(summary)
+        writer.add_summary(summary2)
+        writer.close()
+    sess.close()
+
 if __name__ == "__main__":
     main(sys.argv[1:])

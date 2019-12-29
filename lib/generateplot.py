@@ -29,15 +29,7 @@ def write_event(data, plotTitle="plotTitle"):
     image = tf.expand_dims(image, 0)
 
     # Add image summary
-    summary_op1 = tf.summary.image(plotTitle, image)
-    paras = paremetersToString()
-    summary_op2 = tf.summary.text("testName", paras)
+    summary = tf.summary.image(plotTitle, image)
+    # summary_op = tf.compat.v1.summary.text("greeting", "test")
 
-    with tf.Session() as sess:
-        summary = sess.run(summary_op1)
-        writer = tf.summary.FileWriter('./logs')
-        writer.add_summary(summary)
-        writer.close()
-        sess.close() # need to close session because next func call will use existing sess
-
-    return
+    return(summary)
