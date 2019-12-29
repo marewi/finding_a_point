@@ -2,7 +2,7 @@
 SIZE = 128
 
 # this is per training data (picture) -> 50000 per pic
-EPISODES = 10000
+EPISODES = 1000
 
 # how often is the agent allowed to try to reach the goal
 steps = 10000
