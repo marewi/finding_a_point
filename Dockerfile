@@ -11,7 +11,8 @@ RUN pip install --upgrade pip && \
     pip install opencv-python && \
     pip install matplotlib && \
     pip install xlrd && \
-    pip install prettytable
+    pip install prettytable && \
+    pip install autopep8
 
 WORKDIR '/finding-a-point'
 

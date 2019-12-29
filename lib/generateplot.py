@@ -1,7 +1,10 @@
-import tensorflow as tf
-import matplotlib.pyplot as plt
 import io
+
+import matplotlib.pyplot as plt
+import tensorflow as tf
+
 from lib.toStringExt import paremetersToString
+
 
 def write_event(data, plotTitle="plotTitle"):
     '''

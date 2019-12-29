@@ -1,5 +1,7 @@
 from prettytable import PrettyTable
+
 from parameters import *
+
 
 def sheetToString(self):
     '''
