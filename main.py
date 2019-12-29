@@ -29,14 +29,13 @@ def main(argv):
     # data filter
     data_filter = ''
     try:
-        opts, args = getopt.getopt(argv, "s")
+        opts, args = getopt.getopt(argv,"s")
         print(opts, args)
     except getopt.GetoptError:
         print(colored("option doesnt exist", 'red'))
         sys.exit(2)
-    if opts == [('-s', '')] and args == []:
-        raise Exception(
-            colored("options for strategy was set, but no arguments", 'red'))
+    if opts == [('-s', '')] and args == []: 
+        raise Exception(colored("options for strategy was set, but no arguments", 'red'))
     if opts == []:
         print(colored("no data_filter was set", 'red'))
     else:
@@ -50,7 +49,7 @@ def main(argv):
 
     ######################################
     # backup old logs
-    newpath = r'./oldlogs'
+    newpath = r'./oldlogs' 
     if not os.path.exists(newpath):
         os.makedirs(newpath)
     source = './logs/'
@@ -65,22 +64,19 @@ def main(argv):
     loc = "./data/table_3000_clustered.xlsx"
     goals = data_input(loc, data_filter)
 
-    print(
-        colored(f"--- time to create environment: {time.time()-env_time} ---", 'blue'))
+    print(colored(f"--- time to create environment: {time.time()-env_time} ---", 'blue'))
 
     ######################################
     # build model
     model_time = time.time()
     model = Model_table()
-    print(colored(
-        f"--- time to create q-table model: {time.time()-model_time} ---", 'blue'))
+    print(colored(f"--- time to create q-table model: {time.time()-model_time} ---", 'blue'))
 
     ######################################
     # train model
     learning_time = time.time()
     episode_rewards, q_table, epsilons = q_learning(goals, model)
-    print(
-        colored(f"--- time to train model: {time.time()-learning_time} ---", 'blue'))
+    print(colored(f"--- time to train model: {time.time()-learning_time} ---", 'blue'))
 
     ######################################
     # measure the results
@@ -96,7 +92,7 @@ def main(argv):
     # write_event(epsilons, "epsilon")
     plt1 = write_event(episode_rewards, 'rewards per episode')
     plt2 = write_event(accumulated_reward, 'accumulated reward')
-
+    
     with tf.Session() as sess:
         summary = sess.run(plt1)
         summary2 = sess.run(plt2)
@@ -105,7 +101,6 @@ def main(argv):
         writer.add_summary(summary2)
         writer.close()
     sess.close()
-
 
 if __name__ == "__main__":
     main(sys.argv[1:])
