@@ -22,6 +22,7 @@
 - [X] change measurement to accumulated reward & reward per episode
     - [X] tostring func for parameters
 - [ ] concept to show learning results (strategy)
+    - [X] show direction strategy
 - [ ] train model with neural network
 - [ ] testing other algorithms instead of q-learning
 - [ ] any parallelism possible?

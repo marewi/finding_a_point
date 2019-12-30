@@ -13,7 +13,7 @@ from termcolor import colored
 from data_input import data_input
 from environment import Goal, Square
 from lib.generateplot import write_event
-from lib.toStringExt import paremetersToString, sheetToString
+from lib.toStringExt import paremetersToString, sheetToString, qtableDirectionsToString
 from model_table import Model_table
 from parameters import *
 from q_learning import q_learning
@@ -101,6 +101,12 @@ def main(argv):
         writer.add_summary(summary2)
         writer.close()
     sess.close()
+
+    # print qtable results
+    pt = qtableDirectionsToString(q_table)
+    qtable_directions = open("./logs/qtable_directions.txt", "w")
+    text_file.write(str(pt))
+    text_file.close()
 
 if __name__ == "__main__":
     main(sys.argv[1:])
