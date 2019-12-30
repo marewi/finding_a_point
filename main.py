@@ -105,8 +105,8 @@ def main(argv):
     # print qtable results
     pt = qtableDirectionsToString(q_table)
     qtable_directions = open("./logs/qtable_directions.txt", "w")
-    text_file.write(str(pt))
-    text_file.close()
+    qtable_directions.write(str(pt))
+    qtable_directions.close()
 
 if __name__ == "__main__":
     main(sys.argv[1:])
