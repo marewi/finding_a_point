@@ -32,10 +32,10 @@ def main(argv):
         opts, args = getopt.getopt(argv,"s")
         print(opts, args)
     except getopt.GetoptError:
-        print(colored("option doesnt exist", 'red'))
+        print(colored("opt2ion doesnt exist", 'red'))
         sys.exit(2)
     if opts == [('-s', '')] and args == []: 
-        raise Exception(colored("options for strategy was set, but no arguments", 'red'))
+        raise Exception(colored("opt2ions for strategy was set, but no arguments", 'red'))
     if opts == []:
         print(colored("no data_filter was set", 'red'))
     else:
@@ -102,10 +102,16 @@ def main(argv):
         writer.close()
     sess.close()
 
-    # print qtable results
-    pt = qtableDirectionsToString(q_table)
+    ### print qtable results
+    pt2 = qtableDirectionsToString(q_table, directions=True) # dirctions
     timestamp = time.time()
     qtable_directions = open(f"./logs/qtable_directions_{data_filter}_{timestamp}.txt", "w")
+    qtable_directions.write(str(pt2))
+    qtable_directions.close()
+
+    pt = qtableDirectionsToString(q_table, directions=False) # just values
+    timestamp = time.time()
+    qtable_directions = open(f"./logs/qtable_values_{data_filter}_{timestamp}.txt", "w")
     qtable_directions.write(str(pt))
     qtable_directions.close()
 

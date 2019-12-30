@@ -42,9 +42,10 @@ def paremetersToString():
     
     return(result)
 
-def qtableDirectionsToString(self):
+def qtableDirectionsToString(self, directions=False):
     '''
-    converting the qtable numbers to direction strings
+    directions=False: converting qtable values to string
+    directions=True: converting qtable values to direction strings
     '''
     pt = PrettyTable()
     col = []
@@ -52,18 +53,21 @@ def qtableDirectionsToString(self):
 
     for i in range(0, int(math.sqrt(len(self)))):
         for ii in range(0, int(math.sqrt(len(self)))):
-            pos_of_max_qvalue = np.argmax(self[i,ii])
-            if pos_of_max_qvalue == 0:
-                direction = "→"
-            elif pos_of_max_qvalue == 1:
-                direction = "←"
-            elif pos_of_max_qvalue == 2:
-                direction = "↓"
-            elif pos_of_max_qvalue == 3:
-                direction = "↑"
-            if i == x and ii == y:
-                direction += "⬤"
-            col.append(direction)
+            if directions == True:
+                pos_of_max_qvalue = np.argmax(self[i,ii])
+                if pos_of_max_qvalue == 0:
+                    direction = "→"
+                elif pos_of_max_qvalue == 1:
+                    direction = "←"
+                elif pos_of_max_qvalue == 2:
+                    direction = "↓"
+                elif pos_of_max_qvalue == 3:
+                    direction = "↑"
+                if i == x and ii == y:
+                    direction += "⬤"
+                col.append(direction)
+            elif directions == False:
+                col.append(self[i,ii])
         pt.add_column(f"x{i}", col)
         col = []
 
