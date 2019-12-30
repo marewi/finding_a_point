@@ -104,7 +104,8 @@ def main(argv):
 
     # print qtable results
     pt = qtableDirectionsToString(q_table)
-    qtable_directions = open("./logs/qtable_directions.txt", "w")
+    timestamp = time.time()
+    qtable_directions = open(f"./logs/qtable_directions_{data_filter}_{timestamp}.txt", "w")
     qtable_directions.write(str(pt))
     qtable_directions.close()
 

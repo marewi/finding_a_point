@@ -37,3 +37,7 @@
 
 # # ← → ↑ ↓ start:⬤  
 # # ziel:◯
+
+# import time
+
+# print(time.time())
