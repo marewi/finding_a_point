@@ -8,18 +8,18 @@ from prettytable import PrettyTable
 from lib.toStringExt import sheetToString
 from model_table import Model_table
 
+
 qtable = Model_table().q_table
-
 pt = PrettyTable()
-
-# print(math.sqrt(len(qtable)))
-
 col = []
+x, y = max(qtable.items(), key=operator.itemgetter(1))[0]
 
 for i in range(0, int(math.sqrt(len(qtable)))):
     for ii in range(0, int(math.sqrt(len(qtable)))):
         pos_of_max_qvalue = np.argmax(qtable[i,ii])
-        if pos_of_max_qvalue == 0:
+        if i == x and ii == y:
+            direction = "⬤"
+        elif pos_of_max_qvalue == 0:
             direction = "→"
         elif pos_of_max_qvalue == 1:
             direction = "←"
@@ -31,10 +31,8 @@ for i in range(0, int(math.sqrt(len(qtable)))):
     pt.add_column(f"x{i}", col)
     col = []
 
-print(pt)
-
 text_file = open("./logs/qtable.txt", "w")
 text_file.write(str(pt))
 text_file.close()
 
-# ← → ↑ ↓
+# ← → ↑ ↓ start:⬤  ziel:◯
