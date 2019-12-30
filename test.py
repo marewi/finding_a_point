@@ -1,22 +1,40 @@
+import math
 import operator
-import numpy as np
+import xlrd
 
+import numpy as np
 from prettytable import PrettyTable
 
 from lib.toStringExt import sheetToString
 from model_table import Model_table
 
-
 qtable = Model_table().q_table
 
-sheet = PrettyTable()
+pt = PrettyTable()
 
-print(qtable)
+# print(math.sqrt(len(qtable)))
 
-# for i in range(0, len(qtable)-1):
-#     for ii in range(0, len(qtable)-1):
-#         a = np.argmax(qtable[i,ii])
-#         print(a)
+col = []
 
+for i in range(0, int(math.sqrt(len(qtable)))):
+    for ii in range(0, int(math.sqrt(len(qtable)))):
+        pos_of_max_qvalue = np.argmax(qtable[i,ii])
+        if pos_of_max_qvalue == 0:
+            direction = "→"
+        elif pos_of_max_qvalue == 1:
+            direction = "←"
+        elif pos_of_max_qvalue == 2:
+            direction = "↓"
+        elif pos_of_max_qvalue == 3:
+            direction = "↑"
+        col.append(direction)
+    pt.add_column(f"x{i}", col)
+    col = []
 
-# print(sheetToString(sheet))
+print(pt)
+
+text_file = open("./logs/qtable.txt", "w")
+text_file.write(str(pt))
+text_file.close()
+
+# ← → ↑ ↓
