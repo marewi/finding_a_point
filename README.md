@@ -21,7 +21,8 @@
     - [?] find optimal sequence of pictures for training model (maybe new epsilon for each picture)
 - [x] change measurement to accumulated reward & reward per episode
     - [X] tostring func for parameters
-- [x] concept to show learning results (strategy)
+- [ ] concept to show learning results (strategy)
+    - [?] show values
     - [x] show direction strategy
         - [x] log all old qtable_direction files
 - [ ] train model with neural network
