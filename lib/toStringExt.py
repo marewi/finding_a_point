@@ -71,7 +71,7 @@ def qtableToString(self, directions=False):
                 for iii in range(0, len(self[i,ii])): 
                     qValues += f"{self[i,ii][iii]}" + "\n"
                 col.append(qValues)
-        pt.add_column(f"x{i}", col)
+        pt.add_column(f"x={i}", col)
         col = []
 
     # ← → ↑ ↓ start:⬤  
