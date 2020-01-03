@@ -42,7 +42,7 @@ def paremetersToString():
     
     return(result)
 
-def qtableDirectionsToString(self, directions=False):
+def qtableToString(self, directions=False):
     '''
     directions=False: converting qtable values to string
     directions=True: converting qtable values to direction strings
@@ -67,7 +67,10 @@ def qtableDirectionsToString(self, directions=False):
                     direction += "⬤"
                 col.append(direction)
             elif directions == False:
-                col.append(self[i,ii])
+                qValues = f""
+                for iii in range(0, len(self[i,ii])): 
+                    qValues += f"{self[i,ii][iii]}" + "\n"
+                col.append(qValues)
         pt.add_column(f"x{i}", col)
         col = []
 

@@ -13,7 +13,7 @@ from termcolor import colored
 from data_input import data_input
 from environment import Goal, Square
 from lib.generateplot import write_event
-from lib.toStringExt import paremetersToString, sheetToString, qtableDirectionsToString
+from lib.toStringExt import paremetersToString, sheetToString, qtableToString
 from model_table import Model_table
 from parameters import *
 from q_learning import q_learning
@@ -103,13 +103,13 @@ def main(argv):
     sess.close()
 
     ### print qtable results
-    pt2 = qtableDirectionsToString(q_table, directions=True) # dirctions
+    pt2 = qtableToString(q_table, directions=True) # dirctions
     timestamp = time.time()
     qtable_directions = open(f"./logs/qtable_directions_{data_filter}_{timestamp}.txt", "w")
     qtable_directions.write(str(pt2))
     qtable_directions.close()
 
-    pt = qtableDirectionsToString(q_table, directions=False) # just values
+    pt = qtableToString(q_table, directions=False) # just values
     timestamp = time.time()
     qtable_directions = open(f"./logs/qtable_values_{data_filter}_{timestamp}.txt", "w")
     qtable_directions.write(str(pt))
