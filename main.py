@@ -103,13 +103,13 @@ def main(argv):
     sess.close()
 
     ### print qtable results
-    pt2 = qtableToString(q_table, directions=True) # dirctions
+    pt2 = qtableToString(q_table, type="directions")
     timestamp = time.time()
     qtable_directions = open(f"./logs/qtable_directions_{data_filter}_{timestamp}.txt", "w")
     qtable_directions.write(str(pt2))
     qtable_directions.close()
 
-    pt = qtableToString(q_table, directions=False) # just values
+    pt = qtableToString(q_table, type="values")
     timestamp = time.time()
     qtable_directions = open(f"./logs/qtable_values_{data_filter}_{timestamp}.txt", "w")
     qtable_directions.write(str(pt))

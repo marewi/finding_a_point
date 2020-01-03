@@ -43,7 +43,7 @@ def paremetersToString():
     
     return(result)
 
-def qtableToString(self, directions=False):
+def qtableToString(self, type="directions"):
     '''
     directions=False: converting qtable values to string
     directions=True: converting qtable values to direction strings
@@ -54,7 +54,7 @@ def qtableToString(self, directions=False):
 
     for i in range(0, int(math.sqrt(len(self)))):
         for ii in range(0, int(math.sqrt(len(self)))):
-            if directions == True:
+            if type == "directions":
                 pos_of_max_qvalue = np.argmax(self[i,ii])
                 if pos_of_max_qvalue == 0:
                     direction = "→"
@@ -67,7 +67,7 @@ def qtableToString(self, directions=False):
                 if i == x and ii == y:
                     direction += "⬤"
                 col.append(direction)
-            elif directions == False:
+            elif type == "values":
                 qValues = f""
                 for iii in range(0, len(self[i,ii])): 
                     qValues += f"{directionToString(iii)} {self[i,ii][iii]}" + "\n"
