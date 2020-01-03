@@ -31,6 +31,25 @@
 #     pt.add_column(f"x{i}", col)
 #     col = []
 
+# def switch_demo(argument):
+#     switcher = {
+#         1: "January",
+#         2: "February",
+#         3: "March",
+#         4: "April",
+#         5: "May",
+#         6: "June",
+#         7: "July",
+#         8: "August",
+#         9: "September",
+#         10: "October",
+#         11: "November",
+#         12: "December"
+#     }
+#     print(switcher.get(argument, "Invalid month"))
+
+# switch_demo(4)
+
 # text_file = open("./logs/qtable_directions.txt", "w")
 # text_file.write(str(pt))
 # text_file.close()

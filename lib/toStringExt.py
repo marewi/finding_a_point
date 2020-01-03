@@ -5,6 +5,7 @@ import numpy as np
 from prettytable import PrettyTable
 
 from parameters import *
+from lib.getDirection import directionToString
 
 
 def sheetToString(self):
@@ -69,7 +70,7 @@ def qtableToString(self, directions=False):
             elif directions == False:
                 qValues = f""
                 for iii in range(0, len(self[i,ii])): 
-                    qValues += f"{self[i,ii][iii]}" + "\n"
+                    qValues += f"{directionToString(iii)} {self[i,ii][iii]}" + "\n"
                 col.append(qValues)
         pt.add_column(f"x={i}", col)
         col = []
