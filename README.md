@@ -19,9 +19,12 @@
     - [x] solving substraction problem
 - [x] train policy for each group of points (e.g. for each logo)
     - [?] find optimal sequence of pictures for training model (maybe new epsilon for each picture)
-- [X] change measurement to accumulated reward & reward per episode
+- [x] change measurement to accumulated reward & reward per episode
     - [X] tostring func for parameters
-- [ ] concept to show learning results (strategy)
+- [X] concept to show learning results (strategy)
+    - [X] show values
+    - [x] show direction strategy
+        - [x] log all old qtable_direction files
 - [ ] train model with neural network
 - [ ] testing other algorithms instead of q-learning
 - [ ] any parallelism possible?

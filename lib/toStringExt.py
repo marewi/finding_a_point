@@ -1,6 +1,11 @@
+import math
+import operator
+
+import numpy as np
 from prettytable import PrettyTable
 
 from parameters import *
+from lib.getDirection import directionToString
 
 
 def sheetToString(self):
@@ -37,3 +42,40 @@ def paremetersToString():
              f'DISCOUNT: {DISCOUNT}')
     
     return(result)
+
+def qtableToString(self, type="directions"):
+    '''
+    directions=False: converting qtable values to string
+    directions=True: converting qtable values to direction strings
+    '''
+    pt = PrettyTable()
+    col = []
+    x, y = max(self.items(), key=operator.itemgetter(1))[0]
+
+    for i in range(0, int(math.sqrt(len(self)))):
+        for ii in range(0, int(math.sqrt(len(self)))):
+            if type == "directions":
+                pos_of_max_qvalue = np.argmax(self[i,ii])
+                if pos_of_max_qvalue == 0:
+                    direction = "→"
+                elif pos_of_max_qvalue == 1:
+                    direction = "←"
+                elif pos_of_max_qvalue == 2:
+                    direction = "↓"
+                elif pos_of_max_qvalue == 3:
+                    direction = "↑"
+                if i == x and ii == y:
+                    direction += "⬤"
+                col.append(direction)
+            elif type == "values":
+                qValues = f""
+                for iii in range(0, len(self[i,ii])): 
+                    qValues += f"{directionToString(iii)} {self[i,ii][iii]}" + "\n"
+                col.append(qValues)
+        pt.add_column(f"x={i}", col)
+        col = []
+
+    # ← → ↑ ↓ start:⬤  
+    # ziel:◯
+
+    return(pt)
