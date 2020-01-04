@@ -4,7 +4,7 @@ from PIL import Image
 from matplotlib import style
 import time
 from lib.toStringExt import sheetToString
-from lib.generateplot import write_event
+from lib.generatePlot import write_event
 
 class Goal:
     def __init__(self, x, y, logo):

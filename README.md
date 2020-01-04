@@ -25,6 +25,7 @@
     - [X] show values
     - [x] show direction strategy
         - [x] log all old qtable_direction files
+- [ ] evalution method
 - [ ] train model with neural network
 - [ ] testing other algorithms instead of q-learning
 - [ ] any parallelism possible?

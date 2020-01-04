@@ -4,19 +4,20 @@ import os
 import shutil
 import sys
 import time
+import pickle
 
 import numpy as np
 import tensorflow as tf
 import xlrd
 from termcolor import colored
 
-from data_input import data_input
+from dataInput import data_input
 from environment import Goal, Square
-from lib.generateplot import write_event
-from lib.toStringExt import paremetersToString, sheetToString, qtableToString
-from model_table import Model_table
+from lib.generatePlot import write_event
+from lib.toStringExt import paremetersToString, qtableToString, sheetToString
+from modelTable import Model_table
 from parameters import *
-from q_learning import q_learning
+from qLearning import q_learning
 
 
 def main(argv):
@@ -32,10 +33,10 @@ def main(argv):
         opts, args = getopt.getopt(argv,"s")
         print(opts, args)
     except getopt.GetoptError:
-        print(colored("opt2ion doesnt exist", 'red'))
+        print(colored("option doesnt exist", 'red'))
         sys.exit(2)
     if opts == [('-s', '')] and args == []: 
-        raise Exception(colored("opt2ions for strategy was set, but no arguments", 'red'))
+        raise Exception(colored("options for strategy was set, but no arguments", 'red'))
     if opts == []:
         print(colored("no data_filter was set", 'red'))
     else:
@@ -102,18 +103,25 @@ def main(argv):
         writer.close()
     sess.close()
 
-    ### print qtable results
+    ### safe qtable results
+    timestamp = time.time()
+    with open(f"./logs/qtable_{data_filter}_{timestamp}.pkl", 'wb') as f:
+        pickle.dump([q_table], f)
+    print(f"SAVED: qtable_{data_filter}_{timestamp}.pkl")
+
     pt2 = qtableToString(q_table, type="directions")
     timestamp = time.time()
     qtable_directions = open(f"./logs/qtable_directions_{data_filter}_{timestamp}.txt", "w")
     qtable_directions.write(str(pt2))
     qtable_directions.close()
+    print(f"SAVED: qtable_directions_{data_filter}_{timestamp}.txt")
 
     pt = qtableToString(q_table, type="values")
     timestamp = time.time()
     qtable_directions = open(f"./logs/qtable_values_{data_filter}_{timestamp}.txt", "w")
     qtable_directions.write(str(pt))
     qtable_directions.close()
+    print(f"SAVED: qtable_values_{data_filter}_{timestamp}.txt")
 
 if __name__ == "__main__":
     main(sys.argv[1:])
