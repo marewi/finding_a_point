@@ -14,6 +14,9 @@
 ### run script
     python main.py -s window/triangle/hook/0/1/2
 
+### evaluate algorithm
+    python evaluate.py -f logs/qtable_3_1578156572.3556674.pkl
+
 ### TODOs
 - [x] dynamic start
     - [x] solving substraction problem
@@ -25,7 +28,7 @@
     - [X] show values
     - [x] show direction strategy
         - [x] log all old qtable_direction files
-- [ ] evalution method
+- [ ] evaluation method
 - [ ] train model with neural network
 - [ ] testing other algorithms instead of q-learning
 - [ ] any parallelism possible?

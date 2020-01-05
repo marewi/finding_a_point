@@ -3,6 +3,7 @@ import pickle
 import sys
 
 from termcolor import colored
+import numpy as np
 
 
 def main(argv):
@@ -20,7 +21,7 @@ def main(argv):
     else:
         for opt, _ in opts:
             print(f"opt: {opt}")
-            if opt == '-s':
+            if opt == '-f':
                 print(f"param was {opt}")
                 print(f"value was {args[0]}")
                 filename = args[0]
@@ -31,9 +32,15 @@ def main(argv):
     with open(filename, 'rb') as f:
         q_table = pickle.load(f)
 
-    print(q_table)
-
     # get arbitrary test pictures
+    arbNumbers = []
+    arbNumbers.append = np.random.randint(0, len(q_table)-1, 10)
+
+    small_q_table = []
+    for i in range(0, len(arbNumbers)):
+        small_q_table.append = q_table[i]
+
+    print(f"small_q_table: {small_q_table}")
 
     # run evaluating agent through test pictures
 
