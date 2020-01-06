@@ -15,7 +15,7 @@ class Goal:
     def __str__(self):
         return f"x: {self.x}, y: {self.y}, logo: {self.logo}"
         
-class Square:
+class Agent:
     '''
     params:
         x: give an x-value as starting point
@@ -31,7 +31,7 @@ class Square:
     def __str__(self):
         return f"{self.x}, {self.y}"
     
-    # to subtract Square from goal (pixel)
+    # to subtract Agent from goal (pixel)
     # def __sub__(self, goal):
     #     return (self.x-goal.x, self.y-goal.y)
 

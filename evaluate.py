@@ -5,6 +5,7 @@ import math
 
 from termcolor import colored
 from dataInput import data_input
+from environment import Agent
 import numpy as np
 import string
 
@@ -49,7 +50,7 @@ def main(argv):
     print(test_goals)
 
     # run evaluating agent through test goals
-    
+    eva_agent = Agent(...)
 
 if __name__ == "__main__":
     main(sys.argv[1:])

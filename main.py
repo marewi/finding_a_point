@@ -1,10 +1,10 @@
 import getopt
 import operator
 import os
+import pickle
 import shutil
 import sys
 import time
-import pickle
 
 import numpy as np
 import tensorflow as tf
@@ -12,7 +12,6 @@ import xlrd
 from termcolor import colored
 
 from dataInput import data_input
-from environment import Goal, Square
 from lib.generatePlot import write_event
 from lib.toStringExt import paremetersToString, qtableToString, sheetToString
 from modelTable import Model_table

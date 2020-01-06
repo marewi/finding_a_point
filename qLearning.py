@@ -4,7 +4,7 @@ import time
 import numpy as np
 from termcolor import colored
 
-from environment import Square
+from environment import Agent
 from parameters import *
 
 
@@ -34,7 +34,7 @@ def q_learning(goals, model):
             x_of_obs_with_max_q, y_of_obs_with_max_q = max(
                 q_table.items(), key=operator.itemgetter(1))[0]
             # let agent start in this obs
-            agent = Square(x_of_obs_with_max_q, y_of_obs_with_max_q)
+            agent = Agent(x_of_obs_with_max_q, y_of_obs_with_max_q)
             # print new agent start if its coordinates have changed
             if x_of_obs_with_max_q_old != x_of_obs_with_max_q or y_of_obs_with_max_q_old != y_of_obs_with_max_q:
                 print(colored(f"agent start has changed: {x_of_obs_with_max_q_old, y_of_obs_with_max_q_old} " +
