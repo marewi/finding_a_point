@@ -1,9 +1,12 @@
 import getopt
 import pickle
 import sys
+import math
 
 from termcolor import colored
+from dataInput import data_input
 import numpy as np
+import string
 
 
 def main(argv):
@@ -30,20 +33,23 @@ def main(argv):
     # TODO: access to qValues tbd
     # load calculated qValues
     with open(filename, 'rb') as f:
-        q_table = pickle.load(f)
+        q_table = pickle.load(f)[0]
+
+    print(q_table[127, 127])
 
     # get arbitrary test pictures
-    arbNumbers = []
-    arbNumbers.append = np.random.randint(0, len(q_table)-1, 10)
+    data_filter = filename[12] # reading data_filter from filename 
+    loc = "./data/table_3000_clustered.xlsx"
+    goals = data_input(loc, data_filter)
+    print(len(goals))
 
-    small_q_table = []
-    for i in range(0, len(arbNumbers)):
-        small_q_table.append = q_table[i]
+    test_goals = []
+    for _ in range(0, 10):
+        test_goals.append(goals[np.random.randint(0, len(goals))])
+    print(test_goals)
 
-    print(f"small_q_table: {small_q_table}")
-
-    # run evaluating agent through test pictures
-
+    # run evaluating agent through test goals
+    
 
 if __name__ == "__main__":
     main(sys.argv[1:])
