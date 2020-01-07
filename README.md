@@ -29,6 +29,7 @@
     - [x] show direction strategy
         - [x] log all old qtable_direction files
 - [ ] evaluation method
+- [ ] reduce prints (e.g. goal created)
 - [ ] train model with neural network
 - [ ] testing other algorithms instead of q-learning
 - [ ] any parallelism possible?

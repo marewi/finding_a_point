@@ -42,15 +42,18 @@ def main(argv):
     data_filter = filename[12] # reading data_filter from filename 
     loc = "./data/table_3000_clustered.xlsx"
     goals = data_input(loc, data_filter)
-    print(len(goals))
 
     test_goals = []
     for _ in range(0, 10):
         test_goals.append(goals[np.random.randint(0, len(goals))])
-    print(test_goals)
 
     # run evaluating agent through test goals
-    eva_agent = Agent(...)
+    for i in range(len(test_goals)):
+        eva_agent = Agent(test_goals[i].x, test_goals[i].y)
+        for _ in range(1000)
+        state = (eva_agent.x, eva_agent.y)
+        action = np.argmax(q_table[state])  # get action
+        eva_agent.action(action)  # take the action
 
 if __name__ == "__main__":
     main(sys.argv[1:])
