@@ -1,13 +1,15 @@
 import getopt
-import pickle
-import sys
 import math
+import operator
+import pickle
+import string
+import sys
 
+import numpy as np
 from termcolor import colored
+
 from dataInput import data_input
 from environment import Agent
-import numpy as np
-import string
 
 
 def main(argv):
@@ -48,12 +50,20 @@ def main(argv):
         test_goals.append(goals[np.random.randint(0, len(goals))])
 
     # run evaluating agent through test goals
-    for i in range(len(test_goals)):
-        eva_agent = Agent(test_goals[i].x, test_goals[i].y)
-        for _ in range(1000)
-        state = (eva_agent.x, eva_agent.y)
-        action = np.argmax(q_table[state])  # get action
-        eva_agent.action(action)  # take the action
+    tries = []
+    for test_nr in range(len(test_goals)):
+        # find state with max Q value
+            x_of_state_with_max_q, y_of_state_with_max_q = max(q_table.items(), key=operator.itemgetter(1))[0]
+            eva_agent = Agent(x_of_state_with_max_q, y_of_state_with_max_q)
+            print("agent created")
+        for i in range(10000):
+            state = (eva_agent.x, eva_agent.y)
+            action = np.argmax(q_table[state])  # get action
+            eva_agent.action(action)  # take the action
+            if eva_agent.x == test_goals[test_nr].x and eva_agent.y == test_goals[test_nr].y:
+                tries.append(i)
+                break # reached goal
+    print(tries)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
