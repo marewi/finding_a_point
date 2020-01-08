@@ -28,7 +28,8 @@
     - [X] show values
     - [x] show direction strategy
         - [x] log all old qtable_direction files
-- [ ] evaluation method
+- [?] evaluation method
+    - [ ] RL for evaluation?
 - [ ] reduce prints (e.g. goal created)
 - [ ] train model with neural network
 - [ ] testing other algorithms instead of q-learning

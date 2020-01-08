@@ -25,6 +25,6 @@ def data_input(filename, data_filter):
     goals = []
     for pic_pos in range(len(x_values)): # x_values for example
         goals.append(Goal(x_values[pic_pos],y_values[pic_pos], logo_values[pic_pos]))
-        print(colored(f"goal created: {goals[pic_pos]}", 'white'))
+        # print(colored(f"goal created: {goals[pic_pos]}", 'white'))
     print(colored(f"{len(goals)} goals were created", 'green'))
     return goals
