@@ -12,7 +12,8 @@ RUN pip install --upgrade pip && \
     pip install matplotlib && \
     pip install xlrd && \
     pip install prettytable && \
-    pip install autopep8
+    pip install autopep8 && \
+    pip install pyclean
 
 WORKDIR '/finding-a-point'
 

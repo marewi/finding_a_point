@@ -4,7 +4,7 @@ from PIL import Image
 from matplotlib import style
 import time
 from lib.toStringExt import sheetToString
-from lib.generateplot import write_event
+from lib.generatePlot import write_event
 
 class Goal:
     def __init__(self, x, y, logo):
@@ -15,7 +15,7 @@ class Goal:
     def __str__(self):
         return f"x: {self.x}, y: {self.y}, logo: {self.logo}"
         
-class Square:
+class Agent:
     '''
     params:
         x: give an x-value as starting point
@@ -31,7 +31,7 @@ class Square:
     def __str__(self):
         return f"{self.x}, {self.y}"
     
-    # to subtract Square from goal (pixel)
+    # to subtract Agent from goal (pixel)
     # def __sub__(self, goal):
     #     return (self.x-goal.x, self.y-goal.y)
 
@@ -44,15 +44,15 @@ class Square:
             3. hoch: --y
         '''
         if choice == 0:
-            self.move(x=1)
+            self.__move(x=1)
         elif choice == 1:
-            self.move(x=-1)
+            self.__move(x=-1)
         elif choice == 2:
-            self.move(y=1)
+            self.__move(y=1)
         elif choice == 3:
-            self.move(y=-1)
+            self.__move(y=-1)
 
-    def move(self, x=False, y=False):
+    def __move(self, x=False, y=False):
         self.x += x
         self.y += y
 
