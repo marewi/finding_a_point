@@ -44,15 +44,15 @@ class Agent:
             3. hoch: --y
         '''
         if choice == 0:
-            self.__move(x=1)
+            self.move(x=1)
         elif choice == 1:
-            self.__move(x=-1)
+            self.move(x=-1)
         elif choice == 2:
-            self.__move(y=1)
+            self.move(y=1)
         elif choice == 3:
-            self.__move(y=-1)
+            self.move(y=-1)
 
-    def __move(self, x=False, y=False):
+    def move(self, x=False, y=False):
         self.x += x
         self.y += y
 

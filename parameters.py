@@ -2,7 +2,11 @@
 ### learning parameters
 
 # this is per training data (picture) -> 50000 per pic
+<<<<<<< HEAD
 EPISODES = 1000
+=======
+EPISODES = 1
+>>>>>>> develop
 
 # how often is the agent allowed to try to reach the goal
 steps = 10000
@@ -16,10 +20,10 @@ EPISODE_DECAY = 0.9999
 # how often to play through env visually
 # SHOW_EVERY = 1
 
-# aka step size: weighted the strength of change of q-value
+# step size: weighted the strength of change of q-value
 LEARNING_RATE = 0.1
 
-# aka visual range: weighted the influence of (max-) future q-value
+# visual range: weighted the influence of (max-) future q-value
 DISCOUNT = 0.95
 
 # which logos should be used
