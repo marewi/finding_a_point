@@ -3,11 +3,8 @@ FROM tensorflow/tensorflow:latest-py3
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y libsm6 libxext6 libxrender-dev && \
-    apt-get install -y git
-
-RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh
-
-RUN apt-get install git-lfs
+    apt-get install -y git && \
+    apt-get install git-lfs
 
 RUN pip install --upgrade pip && \
     pip install -U pylint --user && \
