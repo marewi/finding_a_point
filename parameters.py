@@ -2,7 +2,7 @@
 ### learning parameters
 
 # this is per training data (picture) -> 50000 per pic
-EPISODES = 100
+EPISODES = 1
 
 # how often is the agent allowed to try to reach the goal
 steps = 10000

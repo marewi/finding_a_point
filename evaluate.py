@@ -10,6 +10,7 @@ from termcolor import colored
 
 from dataInput import data_input
 from environment import Agent
+from parameters import *
 
 
 def main(argv):
@@ -50,23 +51,27 @@ def main(argv):
         test_goals.append(goals[np.random.randint(0, len(goals))])
 
     # run evaluating agent through test goals
-    tries = []
+    reward_sum = []
     for test_nr in range(len(test_goals)):
         # find state with max Q value
         x_of_state_with_max_q, y_of_state_with_max_q = max(q_table.items(), key=operator.itemgetter(1))[0]
         eva_agent = Agent(x_of_state_with_max_q, y_of_state_with_max_q)
-        # print("agent created")
-        for i in range(10000):
+        print(f"eva_agent created: {eva_agent}")
+        for i in range(1000):
             state = (eva_agent.x, eva_agent.y)
-            # print(f"state: {state}")
             action = np.argmax(q_table[state]) # get action
-            # print(f"action: {action}")
             eva_agent.action(action)  # take the action
-            # print(f"eva_agent: {eva_agent}")
+            print(f"eva_agent: {eva_agent}")
             if eva_agent.x == test_goals[test_nr].x and eva_agent.y == test_goals[test_nr].y:
-                tries.append(i)
+                reward = GOAL_REWARD
+            else:
+                reward = -MOVE_PENALTY
+            if eva_agent.x == test_goals[test_nr].x and eva_agent.y == test_goals[test_nr].y:
+                reward_sum.append = reward
+                print("now breaking...")
                 break # reached goal
-    print(f"tries: {tries}")
+            print(reward)
+    print(f"reward sum: {reward_sum}")
 
 if __name__ == "__main__":
     main(sys.argv[1:])
