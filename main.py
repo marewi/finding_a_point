@@ -22,8 +22,8 @@ from qLearning import q_learning
 def main(argv):
     # logs
     print(tf.__version__)
-    para = paremetersToString()
-    print(para)
+    # para = paremetersToString()
+    # print(para)
 
     ######################################
     # data filter
