@@ -1,5 +1,7 @@
 # finding a point in a grid layout
 
+### going into running container
+    docker attach <container>
 
 ### build image
     docker build --rm -f Dockerfile -t finding-a-point .

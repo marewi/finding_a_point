@@ -16,10 +16,10 @@ EPISODE_DECAY = 0.9999
 # how often to play through env visually
 # SHOW_EVERY = 1
 
-# aka step size: weighted the strength of change of q-value
+# step size: weighted the strength of change of q-value
 LEARNING_RATE = 0.1
 
-# aka visual range: weighted the influence of (max-) future q-value
+# visual range: weighted the influence of (max-) future q-value
 DISCOUNT = 0.95
 
 # which logos should be used
