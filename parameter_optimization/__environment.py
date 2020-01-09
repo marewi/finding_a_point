@@ -6,15 +6,15 @@ class Agent:
     def __str__(self):
         return f"param1: {self.param1}, param2: {self.param2}"
 
-    def action(self, choice_param1=False, choice_param2=False):
-        if choice_param1 == 0:
+    def action(self, choice):
+        if choice == 0:
             self.change(param1=0.1) # higher
-        elif choice_param1 == 1:
+        elif choice == 1:
             self.change(param1=-0.1) # lower
         
-        if choice_param2 == 0:
+        if choice == 2:
             self.change(param2=0.1) # higher
-        elif choice_param2 == 1:
+        elif choice == 3:
             self.change(param2=-0.1) # lower
 
 
